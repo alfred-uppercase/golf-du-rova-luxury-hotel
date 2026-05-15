@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import heroGolf from "@/assets/hero-golf.jpg";
 import heritageWood from "@/assets/heritage-wood.jpg";
 import heritageAerial from "@/assets/heritage-aerial.jpg";
@@ -28,7 +28,7 @@ function Index() {
             <a href="#hotel" className="hover:text-primary transition-colors">L'Hôtel</a>
             <a href="#golf" className="hover:text-primary transition-colors">Golf 18 Trous</a>
             <a href="#experiences" className="hover:text-primary transition-colors">Expériences</a>
-            <a href="#restaurants" className="hover:text-primary transition-colors">Restaurants</a>
+            <Link to="/restaurants" className="hover:text-primary transition-colors">Restaurants</Link>
           </div>
         </div>
         <div className="flex items-center gap-5">
