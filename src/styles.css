@@ -40,9 +40,9 @@
   --animate-fade-up: fade-up 1s var(--ease-out-expo) both;
   --animate-fade-up-delay: fade-up 1s var(--ease-out-expo) 300ms both;
 
-  @keyframes fade-up {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+  @keyframes loader-pulse {
+    0%, 100% { opacity: 0.4; transform: scale(0.98); }
+    50% { opacity: 1; transform: scale(1); }
   }
 }
 
