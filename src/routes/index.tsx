@@ -26,9 +26,9 @@ function Index() {
           </div>
           <div className="hidden lg:flex gap-8 text-[11px] uppercase tracking-[0.18em] font-medium text-foreground/80">
             <a href="#hotel" className="hover:text-primary transition-colors">L'Hôtel</a>
-            <a href="#golf" className="hover:text-primary transition-colors">Golf 18 Trous</a>
-            <a href="#experiences" className="hover:text-primary transition-colors">Expériences</a>
+            <Link to="/chambres" className="hover:text-primary transition-colors">Chambres</Link>
             <Link to="/restaurants" className="hover:text-primary transition-colors">Restaurants</Link>
+            <a href="#golf" className="hover:text-primary transition-colors">Golf 18 Trous</a>
           </div>
         </div>
         <div className="flex items-center gap-5">

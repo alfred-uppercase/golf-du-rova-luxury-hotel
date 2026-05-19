@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as RestaurantsRouteImport } from './routes/restaurants'
+import { Route as ChambresRouteImport } from './routes/chambres'
 import { Route as IndexRouteImport } from './routes/index'
 
 const RestaurantsRoute = RestaurantsRouteImport.update({
   id: '/restaurants',
   path: '/restaurants',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChambresRoute = ChambresRouteImport.update({
+  id: '/chambres',
+  path: '/chambres',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -25,27 +31,31 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/chambres': typeof ChambresRoute
   '/restaurants': typeof RestaurantsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/chambres': typeof ChambresRoute
   '/restaurants': typeof RestaurantsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/chambres': typeof ChambresRoute
   '/restaurants': typeof RestaurantsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/restaurants'
+  fullPaths: '/' | '/chambres' | '/restaurants'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/restaurants'
-  id: '__root__' | '/' | '/restaurants'
+  to: '/' | '/chambres' | '/restaurants'
+  id: '__root__' | '/' | '/chambres' | '/restaurants'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ChambresRoute: typeof ChambresRoute
   RestaurantsRoute: typeof RestaurantsRoute
 }
 
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/restaurants'
       fullPath: '/restaurants'
       preLoaderRoute: typeof RestaurantsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chambres': {
+      id: '/chambres'
+      path: '/chambres'
+      fullPath: '/chambres'
+      preLoaderRoute: typeof ChambresRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -70,6 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ChambresRoute: ChambresRoute,
   RestaurantsRoute: RestaurantsRoute,
 }
 export const routeTree = rootRouteImport
