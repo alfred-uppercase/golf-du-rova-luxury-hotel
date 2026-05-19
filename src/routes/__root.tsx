@@ -8,6 +8,8 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 
+import { PageTransition } from "@/components/page-transition";
+
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
@@ -116,6 +118,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <PageTransition />
       <Outlet />
     </QueryClientProvider>
   );
