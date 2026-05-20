@@ -5,6 +5,7 @@ import roomSuite from "@/assets/room-suite.jpg";
 import roomSignature from "@/assets/room-signature.jpg";
 import roomVilla from "@/assets/room-villa.jpg";
 import roomDetail from "@/assets/room-detail.jpg";
+import { useT, LangSwitcher } from "@/lib/i18n";
 
 export const Route = createFileRoute("/chambres")({
   head: () => ({
@@ -29,78 +30,56 @@ export const Route = createFileRoute("/chambres")({
 type Room = {
   id: string;
   index: string;
-  name: string;
-  category: string;
+  nameKey: string;
+  catKey: string;
   surface: string;
-  capacity: string;
-  view: string;
+  capKey: string;
+  viewKey: string;
+  altKey: string;
+  descKey: string;
+  amenityKeys: string[];
   img: string;
-  alt: string;
-  description: string;
-  amenities: string[];
 };
 
 const rooms: Room[] = [
   {
-    id: "deluxe",
-    index: "01",
-    name: "Chambre Deluxe Heritage",
-    category: "Chambre · 42 m²",
-    surface: "42 m²",
-    capacity: "2 adultes",
-    view: "Jardin colonial",
+    id: "deluxe", index: "01",
+    nameKey: "rm.deluxe.name", catKey: "rm.deluxe.cat", surface: "42 m²",
+    capKey: "rm.deluxe.cap", viewKey: "rm.deluxe.view", altKey: "rm.deluxe.alt",
+    descKey: "rm.deluxe.desc",
+    amenityKeys: ["rm.deluxe.a1", "rm.deluxe.a2", "rm.deluxe.a3", "rm.deluxe.a4"],
     img: roomDeluxe,
-    alt: "Chambre Deluxe Heritage avec lit à baldaquin en acajou",
-    description:
-      "Pensée comme un cocon d'élégance feutrée, la chambre Deluxe Heritage célèbre l'art de vivre malgacho-colonial. Lit à baldaquin en acajou massif, textiles tissés à la main et terrasse privative ouverte sur les jardins centenaires du domaine.",
-    amenities: ["King bed", "Salle de bain en marbre", "Terrasse privée", "Minibar"],
   },
   {
-    id: "suite",
-    index: "02",
-    name: "Suite Exécutive Rova",
-    category: "Suite · 68 m²",
-    surface: "68 m²",
-    capacity: "2 adultes + 1 enfant",
-    view: "Hauts plateaux",
+    id: "suite", index: "02",
+    nameKey: "rm.suite.name", catKey: "rm.suite.cat", surface: "68 m²",
+    capKey: "rm.suite.cap", viewKey: "rm.suite.view", altKey: "rm.suite.alt",
+    descKey: "rm.suite.desc",
+    amenityKeys: ["rm.suite.a1", "rm.suite.a2", "rm.suite.a3", "rm.suite.a4"],
     img: roomSuite,
-    alt: "Suite Exécutive avec cheminée et vue panoramique sur les hauts plateaux",
-    description:
-      "Un salon distinct, une cheminée à foyer ouvert et une baie vitrée toute hauteur ouverte sur le couchant. La Suite Exécutive offre une expérience résidentielle, idéale pour les longs séjours et les soirées contemplatives.",
-    amenities: ["Salon séparé", "Cheminée", "Baie panoramique", "Butler service"],
   },
   {
-    id: "signature",
-    index: "03",
-    name: "Suite Signature Fairway",
-    category: "Suite · 92 m²",
-    surface: "92 m²",
-    capacity: "2 adultes",
-    view: "Parcours 18 trous",
+    id: "signature", index: "03",
+    nameKey: "rm.signature.name", catKey: "rm.signature.cat", surface: "92 m²",
+    capKey: "rm.signature.cap", viewKey: "rm.signature.view", altKey: "rm.signature.alt",
+    descKey: "rm.signature.desc",
+    amenityKeys: ["rm.signature.a1", "rm.signature.a2", "rm.signature.a3", "rm.signature.a4"],
     img: roomSignature,
-    alt: "Suite Signature ouverte sur le parcours de golf 18 trous",
-    description:
-      "Notre suite la plus demandée. Vastes volumes, mobilier d'antiquaire, balcon en bois exotique surplombant le parcours signature 18 trous. Le réveil s'y fait au son des oiseaux endémiques et des premiers swings de la matinée.",
-    amenities: ["Balcon golf", "Dressing", "Bain en îlot", "Petit-déjeuner privé"],
   },
   {
-    id: "villa",
-    index: "04",
-    name: "Villa Privée Rovaheli",
-    category: "Villa · 180 m²",
-    surface: "180 m²",
-    capacity: "Jusqu'à 4 adultes",
-    view: "Vallée & piscine",
+    id: "villa", index: "04",
+    nameKey: "rm.villa.name", catKey: "rm.villa.cat", surface: "180 m²",
+    capKey: "rm.villa.cap", viewKey: "rm.villa.view", altKey: "rm.villa.alt",
+    descKey: "rm.villa.desc",
+    amenityKeys: ["rm.villa.a1", "rm.villa.a2", "rm.villa.a3", "rm.villa.a4"],
     img: roomVilla,
-    alt: "Villa privée avec piscine à débordement face à la vallée",
-    description:
-      "Un refuge d'exception en lisière du domaine : deux chambres, salon-cheminée, piscine à débordement, terrasse-deck et accès héliport dédié. La Villa Rovaheli incarne la promesse d'une intimité absolue, orchestrée par un majordome attitré.",
-    amenities: ["Piscine privée", "2 chambres", "Héliport", "Majordome 24h"],
   },
 ];
 
 function ChambresPage() {
+  const { t } = useT();
   const [openInfo, setOpenInfo] = useState<string | null>(null);
+  const active = rooms.find((x) => x.id === openInfo);
 
   return (
     <div className="min-h-screen bg-background font-body text-foreground selection:bg-primary/10 selection:text-primary">
@@ -112,22 +91,20 @@ function ChambresPage() {
               Golf du Rova
             </span>
             <span className="font-mono text-[9px] uppercase tracking-[0.3em] mt-1 text-muted-foreground">
-              Madagascar · Est. 1930
+              {t("nav.tagline")}
             </span>
           </Link>
           <div className="hidden lg:flex gap-8 text-[11px] uppercase tracking-[0.18em] font-medium text-foreground/80">
-            <Link to="/" className="hover:text-primary transition-colors">L'Hôtel</Link>
-            <Link to="/chambres" className="text-primary">Chambres</Link>
-            <Link to="/restaurants" className="hover:text-primary transition-colors">Restaurants</Link>
-            <Link to="/" hash="golf" className="hover:text-primary transition-colors">Golf 18 Trous</Link>
+            <Link to="/" className="hover:text-primary transition-colors">{t("nav.hotel")}</Link>
+            <Link to="/chambres" className="text-primary">{t("nav.rooms")}</Link>
+            <Link to="/restaurants" className="hover:text-primary transition-colors">{t("nav.restaurants")}</Link>
+            <Link to="/" hash="golf" className="hover:text-primary transition-colors">{t("nav.golf")}</Link>
           </div>
         </div>
         <div className="flex items-center gap-5">
-          <span className="hidden sm:inline text-[10px] uppercase tracking-[0.25em] font-mono text-muted-foreground">
-            FR / EN
-          </span>
+          <LangSwitcher />
           <button className="bg-primary text-primary-foreground px-5 py-2.5 text-[11px] uppercase tracking-[0.2em] font-medium hover:bg-primary/90 transition-all">
-            Réserver
+            {t("nav.book")}
           </button>
         </div>
       </nav>
@@ -136,22 +113,18 @@ function ChambresPage() {
       <section className="relative pt-40 pb-20 md:pt-52 md:pb-28 px-6 md:px-12 border-b border-border">
         <div className="max-w-6xl mx-auto" style={{ animation: "var(--animate-fade-up)" }}>
           <span className="font-mono text-[10px] uppercase tracking-[0.35em] text-accent block mb-6">
-            Hébergement · 4 catégories d'exception
+            {t("rooms.kicker")}
           </span>
           <h1 className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight text-balance mb-10">
-            Chambres <br />
-            <span className="italic text-primary">& Suites.</span>
+            {t("rooms.title.1")} <br />
+            <span className="italic text-primary">{t("rooms.title.2")}</span>
           </h1>
           <div className="grid md:grid-cols-2 gap-10 max-w-5xl">
             <p className="text-muted-foreground text-pretty leading-relaxed text-lg">
-              Chaque chambre du Golf du Rova est conçue comme une page d'un récit centenaire,
-              où le bois précieux des hauts plateaux dialogue avec la lumière douce de
-              Madagascar.
+              {t("rooms.intro.1")}
             </p>
             <p className="text-muted-foreground text-pretty leading-relaxed">
-              De la chambre Deluxe Heritage à la Villa Privée Rovaheli, nos 38 hébergements
-              partagent un même art de l'hospitalité : matériaux nobles, literie de maison
-              européenne et un service attentif, presque invisible.
+              {t("rooms.intro.2")}
             </p>
           </div>
         </div>
@@ -170,7 +143,7 @@ function ChambresPage() {
             <div className="lg:col-span-7">
               <img
                 src={r.img}
-                alt={r.alt}
+                alt={t(r.altKey)}
                 width={1280}
                 height={1600}
                 loading="lazy"
@@ -185,44 +158,44 @@ function ChambresPage() {
                 <span className="h-px flex-1 bg-border" />
               </div>
               <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-muted-foreground block mb-4">
-                {r.category}
+                {t(r.catKey)}
               </span>
               <h2 className="font-display text-4xl md:text-5xl leading-tight mb-8 text-balance">
-                {r.name}
+                {t(r.nameKey)}
               </h2>
               <p className="text-muted-foreground leading-relaxed text-pretty max-w-[52ch] mb-8">
-                {r.description}
+                {t(r.descKey)}
               </p>
 
               {/* Specs */}
               <dl className="grid grid-cols-3 gap-6 mb-10 border-y border-border py-6">
                 <div>
                   <dt className="font-mono text-[9px] uppercase tracking-[0.25em] text-muted-foreground mb-1">
-                    Surface
+                    {t("rooms.spec.surface")}
                   </dt>
                   <dd className="font-display text-lg">{r.surface}</dd>
                 </div>
                 <div>
                   <dt className="font-mono text-[9px] uppercase tracking-[0.25em] text-muted-foreground mb-1">
-                    Capacité
+                    {t("rooms.spec.capacity")}
                   </dt>
-                  <dd className="font-display text-lg">{r.capacity}</dd>
+                  <dd className="font-display text-lg">{t(r.capKey)}</dd>
                 </div>
                 <div>
                   <dt className="font-mono text-[9px] uppercase tracking-[0.25em] text-muted-foreground mb-1">
-                    Vue
+                    {t("rooms.spec.view")}
                   </dt>
-                  <dd className="font-display text-lg">{r.view}</dd>
+                  <dd className="font-display text-lg">{t(r.viewKey)}</dd>
                 </div>
               </dl>
 
               <ul className="flex flex-wrap gap-x-5 gap-y-2 mb-10">
-                {r.amenities.map((a) => (
+                {r.amenityKeys.map((a) => (
                   <li
                     key={a}
                     className="text-[11px] uppercase tracking-[0.18em] text-foreground/70 before:content-['—'] before:mr-2 before:text-accent"
                   >
-                    {a}
+                    {t(a)}
                   </li>
                 ))}
               </ul>
@@ -232,11 +205,11 @@ function ChambresPage() {
                   onClick={() => setOpenInfo(r.id)}
                   className="text-[11px] uppercase tracking-[0.25em] font-semibold border-b border-primary pb-2 hover:text-primary transition-colors inline-flex items-center gap-2"
                 >
-                  Détails & équipements
+                  {t("rooms.details.cta")}
                   <span aria-hidden>→</span>
                 </button>
                 <button className="bg-primary text-primary-foreground px-7 py-3.5 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-accent hover:text-accent-foreground transition-all">
-                  Réserver cette chambre
+                  {t("rooms.book")}
                 </button>
               </div>
             </div>
@@ -249,30 +222,22 @@ function ChambresPage() {
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           <div className="lg:col-span-5 order-2 lg:order-1">
             <span className="font-mono text-[11px] text-accent uppercase tracking-[0.3em] block mb-6">
-              L'Art du Détail
+              {t("rooms.art.kicker")}
             </span>
             <h2 className="font-display text-4xl md:text-5xl leading-tight text-balance mb-8">
-              Une attention <span className="italic">à chaque geste.</span>
+              {t("rooms.art.title.1")} <span className="italic">{t("rooms.art.title.2")}</span>
             </h2>
             <div className="space-y-5 text-muted-foreground leading-relaxed text-pretty max-w-[55ch]">
-              <p>
-                Marbre de Carrare, robinetterie en laiton brossé, draps en lin lavé tissés à
-                Antananarivo : chaque matériau est choisi pour sa noblesse et sa capacité à
-                bien vieillir, à raconter le temps qui passe.
-              </p>
-              <p>
-                Notre majordomerie veille discrètement à chaque détail — du réveil parfumé au
-                turn-down service du soir — pour que votre séjour relève moins de l'hôtellerie
-                que de la résidence privée.
-              </p>
+              <p>{t("rooms.art.p1")}</p>
+              <p>{t("rooms.art.p2")}</p>
             </div>
             <ul className="grid grid-cols-2 gap-4 mt-10 text-[11px] uppercase tracking-[0.2em] text-foreground/80">
-              <li>— Linge de maison européen</li>
-              <li>— Produits de bain signature</li>
-              <li>— Climatisation silencieuse</li>
-              <li>— Wi-Fi très haut débit</li>
-              <li>— Coffre-fort biométrique</li>
-              <li>— Service d'étage 24h/24</li>
+              <li>{t("rooms.feat.1")}</li>
+              <li>{t("rooms.feat.2")}</li>
+              <li>{t("rooms.feat.3")}</li>
+              <li>{t("rooms.feat.4")}</li>
+              <li>{t("rooms.feat.5")}</li>
+              <li>{t("rooms.feat.6")}</li>
             </ul>
           </div>
           <div className="lg:col-span-7 order-1 lg:order-2">
@@ -292,18 +257,17 @@ function ChambresPage() {
       <section className="py-24 md:py-32 px-6 md:px-12 text-center">
         <div className="max-w-2xl mx-auto">
           <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent block mb-6">
-            Conciergerie privée
+            {t("rooms.cta.kicker")}
           </span>
           <h2 className="font-display text-3xl md:text-5xl leading-tight mb-8 text-balance">
-            Composez votre <span className="italic">séjour sur-mesure.</span>
+            {t("rooms.cta.title.1")} <span className="italic">{t("rooms.cta.title.2")}</span>
           </h2>
           <p className="text-muted-foreground mb-10 leading-relaxed">
-            Notre équipe orchestre chaque détail — transferts hélicoptère, parcours de golf,
-            soins spa et tables d'exception — pour vous offrir un séjour à votre image.
+            {t("rooms.cta.p")}
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <button className="bg-primary text-primary-foreground px-10 py-4 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-accent hover:text-accent-foreground transition-all">
-              Vérifier la disponibilité
+              {t("home.check.availability")}
             </button>
             <a
               href="tel:+261342022011"
@@ -328,16 +292,16 @@ function ChambresPage() {
             to="/"
             className="text-[11px] uppercase tracking-[0.25em] opacity-70 hover:opacity-100 transition-opacity self-start md:self-center"
           >
-            ← Retour à l'accueil
+            {t("footer.back")}
           </Link>
         </div>
         <p className="text-[9px] opacity-40 uppercase tracking-[0.25em] mt-8 text-center md:text-left">
-          © 2026 Golf du Rova — Héritage Malgache
+          {t("footer.copy.short")}
         </p>
       </footer>
 
       {/* Info modal */}
-      {openInfo && (
+      {openInfo && active && (
         <div
           className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm flex items-center justify-center p-6"
           onClick={() => setOpenInfo(null)}
@@ -346,39 +310,31 @@ function ChambresPage() {
             className="bg-background max-w-lg w-full p-10 md:p-12 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            {(() => {
-              const r = rooms.find((x) => x.id === openInfo)!;
-              return (
-                <>
-                  <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent block mb-4">
-                    {r.category}
-                  </span>
-                  <h3 className="font-display text-3xl md:text-4xl mb-6">{r.name}</h3>
-                  <ul className="grid grid-cols-2 gap-3 mb-8 text-[11px] uppercase tracking-[0.18em] text-foreground/80">
-                    {r.amenities.map((a) => (
-                      <li key={a} className="before:content-['—'] before:mr-2 before:text-accent">
-                        {a}
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="text-muted-foreground leading-relaxed mb-8 text-sm">
-                    La fiche détaillée complète, plan de chambre et tarifs saisonniers vous
-                    seront transmis par notre conciergerie sur simple demande.
-                  </p>
-                  <div className="flex flex-wrap gap-4">
-                    <button className="bg-primary text-primary-foreground px-6 py-3 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-accent hover:text-accent-foreground transition-all">
-                      Réserver
-                    </button>
-                    <button
-                      onClick={() => setOpenInfo(null)}
-                      className="text-[11px] uppercase tracking-[0.25em] font-semibold border-b border-foreground pb-2 hover:text-primary transition-colors"
-                    >
-                      Fermer
-                    </button>
-                  </div>
-                </>
-              );
-            })()}
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent block mb-4">
+              {t(active.catKey)}
+            </span>
+            <h3 className="font-display text-3xl md:text-4xl mb-6">{t(active.nameKey)}</h3>
+            <ul className="grid grid-cols-2 gap-3 mb-8 text-[11px] uppercase tracking-[0.18em] text-foreground/80">
+              {active.amenityKeys.map((a) => (
+                <li key={a} className="before:content-['—'] before:mr-2 before:text-accent">
+                  {t(a)}
+                </li>
+              ))}
+            </ul>
+            <p className="text-muted-foreground leading-relaxed mb-8 text-sm">
+              {t("rooms.modal.p")}
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <button className="bg-primary text-primary-foreground px-6 py-3 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-accent hover:text-accent-foreground transition-all">
+                {t("nav.book")}
+              </button>
+              <button
+                onClick={() => setOpenInfo(null)}
+                className="text-[11px] uppercase tracking-[0.25em] font-semibold border-b border-foreground pb-2 hover:text-primary transition-colors"
+              >
+                {t("common.close")}
+              </button>
+            </div>
           </div>
         </div>
       )}

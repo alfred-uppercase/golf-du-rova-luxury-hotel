@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 
 import { PageTransition } from "@/components/page-transition";
+import { LanguageProvider } from "@/lib/i18n";
 
 import appCss from "../styles.css?url";
 
@@ -118,8 +119,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <PageTransition />
-      <Outlet />
+      <LanguageProvider>
+        <PageTransition />
+        <Outlet />
+      </LanguageProvider>
     </QueryClientProvider>
   );
 }
