@@ -5,12 +5,14 @@ import heritageAerial from "@/assets/heritage-aerial.jpg";
 import expSuite from "@/assets/exp-suite.jpg";
 import expGolf from "@/assets/exp-golf.jpg";
 import expSpa from "@/assets/exp-spa.jpg";
+import { useT, LangSwitcher } from "@/lib/i18n";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
 function Index() {
+  const { t } = useT();
   return (
     <div className="min-h-screen bg-background font-body text-foreground selection:bg-primary/10 selection:text-primary">
       {/* Navigation */}
@@ -21,22 +23,20 @@ function Index() {
               Golf du Rova
             </span>
             <span className="font-mono text-[9px] uppercase tracking-[0.3em] mt-1 text-muted-foreground">
-              Madagascar · Est. 1930
+              {t("nav.tagline")}
             </span>
           </div>
           <div className="hidden lg:flex gap-8 text-[11px] uppercase tracking-[0.18em] font-medium text-foreground/80">
-            <a href="#hotel" className="hover:text-primary transition-colors">L'Hôtel</a>
-            <Link to="/chambres" className="hover:text-primary transition-colors">Chambres</Link>
-            <Link to="/restaurants" className="hover:text-primary transition-colors">Restaurants</Link>
-            <a href="#golf" className="hover:text-primary transition-colors">Golf 18 Trous</a>
+            <a href="#hotel" className="hover:text-primary transition-colors">{t("nav.hotel")}</a>
+            <Link to="/chambres" className="hover:text-primary transition-colors">{t("nav.rooms")}</Link>
+            <Link to="/restaurants" className="hover:text-primary transition-colors">{t("nav.restaurants")}</Link>
+            <a href="#golf" className="hover:text-primary transition-colors">{t("nav.golf")}</a>
           </div>
         </div>
         <div className="flex items-center gap-5">
-          <span className="hidden sm:inline text-[10px] uppercase tracking-[0.25em] font-mono text-muted-foreground">
-            FR / EN
-          </span>
+          <LangSwitcher />
           <button className="bg-primary text-primary-foreground px-5 py-2.5 text-[11px] uppercase tracking-[0.2em] font-medium hover:bg-primary/90 transition-all">
-            Réserver
+            {t("nav.book")}
           </button>
         </div>
       </nav>
@@ -59,11 +59,11 @@ function Index() {
           style={{ animation: "var(--animate-fade-up)" }}
         >
           <span className="font-mono text-[10px] uppercase tracking-[0.35em] text-white/80 block mb-6">
-            Hôtel 5 étoiles · Antananarivo
+            {t("home.kicker")}
           </span>
           <h1 className="font-display text-white text-5xl md:text-7xl lg:text-8xl text-balance leading-[0.95] tracking-tight mb-8">
-            La quiétude d'un <br />
-            <span className="italic text-accent">patrimoine vivant.</span>
+            {t("home.title.1")} <br />
+            <span className="italic text-accent">{t("home.title.2")}</span>
           </h1>
         </div>
 
@@ -75,21 +75,21 @@ function Index() {
           <div className="bg-background/95 backdrop-blur shadow-2xl ring-1 ring-black/5 p-1 flex flex-col md:flex-row items-stretch">
             <div className="flex-1 flex border-b md:border-b-0 md:border-r border-border">
               <div className="flex-1 p-5 border-r border-border hover:bg-stone-soft transition-colors cursor-pointer">
-                <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-1">Arrivée</p>
-                <p className="font-display text-lg">12 Juin 2026</p>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-1">{t("home.checkin")}</p>
+                <p className="font-display text-lg">{t("home.date.in")}</p>
               </div>
               <div className="flex-1 p-5 hover:bg-stone-soft transition-colors cursor-pointer">
-                <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-1">Départ</p>
-                <p className="font-display text-lg">18 Juin 2026</p>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-1">{t("home.checkout")}</p>
+                <p className="font-display text-lg">{t("home.date.out")}</p>
               </div>
             </div>
             <div className="flex-1 flex">
               <div className="flex-1 p-5 border-r border-border hover:bg-stone-soft transition-colors cursor-pointer">
-                <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-1">Hôtes</p>
-                <p className="font-display text-lg">2 Adultes</p>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-1">{t("home.guests")}</p>
+                <p className="font-display text-lg">{t("home.adults")}</p>
               </div>
               <button className="flex-1 bg-accent text-accent-foreground uppercase tracking-[0.2em] text-[11px] font-bold hover:bg-primary hover:text-primary-foreground transition-all duration-500 px-6 py-5">
-                Vérifier la disponibilité
+                {t("home.check.availability")}
               </button>
             </div>
           </div>
@@ -101,26 +101,23 @@ function Index() {
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           <div className="lg:col-span-5">
             <span className="font-mono text-[11px] text-accent uppercase tracking-[0.3em] block mb-6">
-              Histoire & Élégance
+              {t("home.story.kicker")}
             </span>
             <h2 className="font-display text-4xl md:text-5xl leading-tight mb-8 text-balance">
-              Là où l'histoire <br />
-              <span className="italic font-normal">sculpte le paysage.</span>
+              {t("home.story.title.1")} <br />
+              <span className="italic font-normal">{t("home.story.title.2")}</span>
             </h2>
             <p className="text-muted-foreground text-pretty leading-relaxed mb-6 max-w-[48ch]">
-              Fondé en 1930, le Golf du Rova allie l'exception d'un hôtel 5 étoiles de luxe à
-              un site historique unique, offrant une expérience de golf incomparable sur le
-              premier et seul véritable parcours de 18 trous à Madagascar.
+              {t("home.story.p1")}
             </p>
             <p className="text-muted-foreground text-pretty leading-relaxed mb-10 max-w-[48ch]">
-              Entre bois précieux, lin froissé et lumière des hauts plateaux, vivez une
-              expérience intemporelle, à la croisée du raffinement et de l'âme malgache.
+              {t("home.story.p2")}
             </p>
             <a
               href="#"
               className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] font-semibold border-b border-primary pb-2 hover:text-primary transition-colors"
             >
-              Découvrir notre héritage
+              {t("home.story.cta")}
               <span aria-hidden>→</span>
             </a>
           </div>
@@ -155,7 +152,7 @@ function Index() {
       <section id="experiences" className="bg-stone-soft py-28 md:py-32 px-6 md:px-12">
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-end mb-14">
-            <h2 className="font-display text-4xl md:text-5xl">L'Art de Recevoir</h2>
+            <h2 className="font-display text-4xl md:text-5xl">{t("home.exp.title")}</h2>
             <span className="font-mono text-[11px] text-muted-foreground uppercase mb-2">
               [ 01 / 05 ]
             </span>
@@ -163,9 +160,9 @@ function Index() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
             {[
-              { img: expSuite, label: "Hébergement", title: "Suites Impériales", alt: "Suite luxueuse avec vue sur le green" },
-              { img: expGolf, label: "Performance", title: "Le 18 Trous Historique", alt: "Trou de golf au coucher du soleil" },
-              { img: expSpa, label: "Bien-être", title: "Sanctuaire du Rova", alt: "Spa minimaliste avec bassin" },
+              { img: expSuite, label: t("home.exp.suite.label"), title: t("home.exp.suite.title"), alt: "Suite luxueuse avec vue sur le green" },
+              { img: expGolf, label: t("home.exp.golf.label"), title: t("home.exp.golf.title"), alt: "Trou de golf au coucher du soleil" },
+              { img: expSpa, label: t("home.exp.spa.label"), title: t("home.exp.spa.title"), alt: "Spa minimaliste avec bassin" },
             ].map((card) => (
               <article
                 key={card.title}
@@ -196,20 +193,19 @@ function Index() {
       <section id="golf" className="py-28 md:py-32 px-6 md:px-12 text-center">
         <div className="max-w-3xl mx-auto">
           <span className="font-mono text-[11px] text-accent uppercase tracking-[0.3em] block mb-6">
-            Parcours Signature
+            {t("home.golf.kicker")}
           </span>
           <h2 className="font-display text-4xl md:text-5xl leading-tight mb-8 text-balance">
-            Le seul <span className="italic">18 trous</span> de Madagascar.
+            {t("home.golf.title.1")} <span className="italic">{t("home.golf.title.2")}</span> {t("home.golf.title.3")}
           </h2>
           <p className="text-muted-foreground leading-relaxed text-lg max-w-[55ch] mx-auto">
-            Un tracé centenaire, dessiné dans la générosité des hauts plateaux. Chaque trou
-            est un dialogue entre le geste, la lumière et la terre rouge.
+            {t("home.golf.p")}
           </p>
           <div className="mt-12 grid grid-cols-3 max-w-2xl mx-auto border-y border-border divide-x divide-border">
             {[
-              { k: "1930", v: "Année de fondation" },
-              { k: "18", v: "Trous d'exception" },
-              { k: "5★", v: "Hôtel de luxe" },
+              { k: "1930", v: t("home.stat.1") },
+              { k: "18", v: t("home.stat.2") },
+              { k: "5★", v: t("home.stat.3") },
             ].map((s) => (
               <div key={s.k} className="py-8">
                 <p className="font-display text-3xl md:text-4xl text-primary">{s.k}</p>
@@ -226,10 +222,9 @@ function Index() {
       <footer id="restaurants" className="bg-primary text-primary-foreground pt-24 pb-12 px-6 md:px-12">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 mb-20">
           <div className="lg:col-span-5">
-            <h4 className="font-display text-3xl md:text-4xl mb-6 italic">Restez informé</h4>
+            <h4 className="font-display text-3xl md:text-4xl mb-6 italic">{t("footer.newsletter.title")}</h4>
             <p className="text-primary-foreground/60 mb-8 max-w-sm text-sm leading-relaxed">
-              Recevez nos invitations exclusives et les actualités du Domaine du Rova
-              directement dans votre boîte mail.
+              {t("footer.newsletter.p")}
             </p>
             <form
               onSubmit={(e) => e.preventDefault()}
@@ -237,33 +232,33 @@ function Index() {
             >
               <input
                 type="email"
-                placeholder="VOTRE EMAIL"
+                placeholder={t("footer.email.placeholder")}
                 className="bg-transparent flex-1 text-[11px] tracking-[0.2em] outline-none placeholder:text-primary-foreground/30"
               />
               <button
                 type="submit"
                 className="text-[11px] font-bold tracking-[0.2em] hover:text-accent transition-colors"
               >
-                S'INSCRIRE
+                {t("footer.subscribe")}
               </button>
             </form>
           </div>
 
           <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-10 text-[11px] uppercase tracking-[0.2em]">
             <div className="space-y-4">
-              <h5 className="text-accent font-bold mb-6">Exploration</h5>
-              <a href="#hotel" className="block opacity-60 hover:opacity-100 transition-opacity">L'Hôtel</a>
-              <a href="#golf" className="block opacity-60 hover:opacity-100 transition-opacity">Le Golf</a>
-              <a href="#experiences" className="block opacity-60 hover:opacity-100 transition-opacity">Expériences</a>
+              <h5 className="text-accent font-bold mb-6">{t("footer.col.explore")}</h5>
+              <a href="#hotel" className="block opacity-60 hover:opacity-100 transition-opacity">{t("nav.hotel")}</a>
+              <a href="#golf" className="block opacity-60 hover:opacity-100 transition-opacity">{t("nav.golf")}</a>
+              <a href="#experiences" className="block opacity-60 hover:opacity-100 transition-opacity">{t("nav.experiences")}</a>
             </div>
             <div className="space-y-4">
-              <h5 className="text-accent font-bold mb-6">Services</h5>
-              <a href="#" className="block opacity-60 hover:opacity-100 transition-opacity">Hélicoptère</a>
-              <a href="#" className="block opacity-60 hover:opacity-100 transition-opacity">Événements</a>
-              <a href="#" className="block opacity-60 hover:opacity-100 transition-opacity">Conciergerie</a>
+              <h5 className="text-accent font-bold mb-6">{t("footer.col.services")}</h5>
+              <a href="#" className="block opacity-60 hover:opacity-100 transition-opacity">{t("footer.helicopter")}</a>
+              <a href="#" className="block opacity-60 hover:opacity-100 transition-opacity">{t("footer.events")}</a>
+              <a href="#" className="block opacity-60 hover:opacity-100 transition-opacity">{t("footer.concierge")}</a>
             </div>
             <div className="space-y-4">
-              <h5 className="text-accent font-bold mb-6">Contact</h5>
+              <h5 className="text-accent font-bold mb-6">{t("footer.col.contact")}</h5>
               <span className="block opacity-60 italic normal-case tracking-normal">
                 Andakana — PK 20, Route de Mahajanga, Antananarivo
               </span>
@@ -276,12 +271,12 @@ function Index() {
           <div className="flex flex-col">
             <span className="font-display text-lg italic">Golf du Rova</span>
             <span className="text-[9px] opacity-40 uppercase tracking-[0.25em] mt-1">
-              © 2026 Héritage Malgache — Tous droits réservés
+              {t("footer.rights")}
             </span>
           </div>
           <div className="flex gap-8 opacity-50 text-[10px] tracking-[0.2em]">
-            <a href="#" className="hover:opacity-100 transition-opacity">MENTIONS LÉGALES</a>
-            <a href="#" className="hover:opacity-100 transition-opacity">CONFIDENTIALITÉ</a>
+            <a href="#" className="hover:opacity-100 transition-opacity">{t("footer.legal")}</a>
+            <a href="#" className="hover:opacity-100 transition-opacity">{t("footer.privacy")}</a>
           </div>
         </div>
       </footer>
