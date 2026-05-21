@@ -1,11 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import heroGolf from "@/assets/hero-golf.jpg";
 import heritageWood from "@/assets/heritage-wood.jpg";
 import heritageAerial from "@/assets/heritage-aerial.jpg";
 import expSuite from "@/assets/exp-suite.jpg";
 import expGolf from "@/assets/exp-golf.jpg";
 import expSpa from "@/assets/exp-spa.jpg";
-import { useT, LangSwitcher } from "@/lib/i18n";
+import { useT } from "@/lib/i18n";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
+
+const HOME_HERO_VIDEO = "https://golf-madagascar.mg/wp-content/uploads/2025/02/GOLF-DU-ROVA-SPOT_Final_.mp4";
 
 export const Route = createFileRoute("/")({
   component: Index,
