@@ -1,10 +1,12 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import restoRova from "@/assets/resto-rova.jpg";
 import restoAsian from "@/assets/resto-asian.jpg";
 import restoView from "@/assets/resto-view.jpg";
 import chefZervas from "@/assets/chef-zervas.jpg";
-import { useT, LangSwitcher } from "@/lib/i18n";
+import { useT } from "@/lib/i18n";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
 
 export const Route = createFileRoute("/restaurants")({
   head: () => ({
@@ -73,31 +75,7 @@ function RestaurantsPage() {
 
   return (
     <div className="min-h-screen bg-background font-body text-foreground selection:bg-primary/10 selection:text-primary">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 px-6 md:px-10 py-5 flex justify-between items-center bg-background/85 backdrop-blur-md border-b border-border">
-        <div className="flex items-center gap-10">
-          <Link to="/" className="flex flex-col leading-none">
-            <span className="font-display text-2xl tracking-tight text-primary font-semibold italic">
-              Golf du Rova
-            </span>
-            <span className="font-mono text-[9px] uppercase tracking-[0.3em] mt-1 text-muted-foreground">
-              {t("nav.tagline")}
-            </span>
-          </Link>
-          <div className="hidden lg:flex gap-8 text-[11px] uppercase tracking-[0.18em] font-medium text-foreground/80">
-            <Link to="/" className="hover:text-primary transition-colors">{t("nav.hotel")}</Link>
-            <Link to="/chambres" className="hover:text-primary transition-colors">{t("nav.rooms")}</Link>
-            <Link to="/restaurants" className="text-primary">{t("nav.restaurants")}</Link>
-            <Link to="/" hash="golf" className="hover:text-primary transition-colors">{t("nav.golf")}</Link>
-          </div>
-        </div>
-        <div className="flex items-center gap-5">
-          <LangSwitcher />
-          <button className="bg-primary text-primary-foreground px-5 py-2.5 text-[11px] uppercase tracking-[0.2em] font-medium hover:bg-primary/90 transition-all">
-            {t("nav.book")}
-          </button>
-        </div>
-      </nav>
+      <SiteHeader active="restaurants" />
 
       {/* Hero */}
       <section className="relative pt-40 pb-20 md:pt-52 md:pb-28 px-6 md:px-12 border-b border-border">
@@ -241,26 +219,7 @@ function RestaurantsPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-primary text-primary-foreground pt-20 pb-10 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-10 pb-10 border-b border-primary-foreground/10">
-          <div>
-            <span className="font-display text-2xl italic">Golf du Rova</span>
-            <p className="text-[11px] uppercase tracking-[0.2em] opacity-60 mt-2">
-              Andakana — Antananarivo · +261 34 20 22 011 90
-            </p>
-          </div>
-          <Link
-            to="/"
-            className="text-[11px] uppercase tracking-[0.25em] opacity-70 hover:opacity-100 transition-opacity self-start md:self-center"
-          >
-            {t("footer.back")}
-          </Link>
-        </div>
-        <p className="text-[9px] opacity-40 uppercase tracking-[0.25em] mt-8 text-center md:text-left">
-          {t("footer.copy.short")}
-        </p>
-      </footer>
+      <SiteFooter />
 
       {/* Menu modal */}
       {openMenu && active && (

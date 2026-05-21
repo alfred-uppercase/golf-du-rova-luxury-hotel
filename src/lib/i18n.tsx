@@ -269,6 +269,62 @@ const D: Dict = {
   "rm.villa.a2": { fr: "2 chambres", en: "2 bedrooms" },
   "rm.villa.a3": { fr: "Héliport", en: "Helipad" },
   "rm.villa.a4": { fr: "Majordome 24h", en: "24h butler" },
+
+  // Golf page
+  "golf.kicker": { fr: "Parcours d'exception · 18 trous · Par 72", en: "Exceptional course · 18 holes · Par 72" },
+  "golf.title.1": { fr: "L'authentique", en: "The authentic" },
+  "golf.title.2": { fr: "parcours 18 trous.", en: "18-hole course." },
+  "golf.intro.1": {
+    fr: "Le parcours du Golf du Rova est une véritable institution à Madagascar. Créé en 1930, il est le seul véritable parcours 18 trous de la Grande Île, et sans conteste le plus beau.",
+    en: "Golf du Rova's course is a true Madagascar institution. Founded in 1930, it is the only true 18-hole course on the Grande Île — and unmistakably the finest.",
+  },
+  "golf.intro.2": {
+    fr: "Oasis verdoyante hors du temps, son décor poétique offre une escapade à 30 minutes seulement de la capitale. Pour s'enrichir encore plus, le parcours s'intègre désormais à un complexe hôtelier 5 étoiles.",
+    en: "A timeless green oasis, its poetic setting offers an escape just 30 minutes from the capital. The course is now woven into a five-star hotel estate.",
+  },
+  "golf.cta.book": { fr: "Réserver maintenant", en: "Book now" },
+  "golf.proshop.kicker": { fr: "Pro Shop", en: "Pro Shop" },
+  "golf.proshop.title.1": { fr: "Un Pro Shop", en: "A Pro Shop" },
+  "golf.proshop.title.2": { fr: "à la hauteur de vos exigences.", en: "that meets your demands." },
+  "golf.proshop.p1": {
+    fr: "Que vous soyez golfeur débutant ou aguerri, le Pro Shop du Golf du Rova répond à toutes vos attentes en matière d'équipement.",
+    en: "Whether you are a beginner or a seasoned golfer, the Pro Shop at Golf du Rova meets every equipment need.",
+  },
+  "golf.proshop.p2": {
+    fr: "Nous proposons une sélection exigeante de produits pour hommes, femmes et enfants — clubs, sacs, chaussures, vêtements, accessoires — pour vous offrir un swing parfait dans une élégance intemporelle.",
+    en: "We offer a curated selection for men, women and children — clubs, bags, shoes, apparel, accessories — to elevate your swing with timeless elegance.",
+  },
+  "golf.swing.kicker": { fr: "Le Swing", en: "Le Swing" },
+  "golf.swing.title.1": { fr: "Une escale raffinée", en: "A refined pause" },
+  "golf.swing.title.2": { fr: "au cœur du practice.", en: "at the heart of the range." },
+  "golf.swing.p1": {
+    fr: "Idéalement situé au centre du practice, Le Swing vous invite à une pause alliant simplicité et élégance.",
+    en: "Set right in the centre of the practice range, Le Swing invites you to a pause that pairs simplicity and elegance.",
+  },
+  "golf.swing.p2": {
+    fr: "Dédié aux joueurs en quête de fraîcheur et de plénitude, cet espace propose une large sélection de boissons. Chaque gorgée vous accompagne naturellement, tout en restant concentré sur votre jeu.",
+    en: "Made for players seeking freshness and focus, the lounge offers a generous drink selection — every sip keeps you grounded in your game.",
+  },
+  "golf.club.kicker": { fr: "Le Club", en: "The Club" },
+  "golf.club.title.1": { fr: "Un parcours d'exception", en: "A course of distinction" },
+  "golf.club.title.2": { fr: "au cœur de l'excellence.", en: "at the heart of excellence." },
+  "golf.club.p1": {
+    fr: "Depuis toujours, le Golf du Rova est une escale unique pour les passionnés de golf, qu'ils soient débutants ou joueurs aguerris. C'est ici que vous toucherez des yeux les plus fameux fairways, lorsque chaque trou est une fenêtre ouverte sur le fairway légendaire.",
+    en: "Since its founding, Golf du Rova has been a singular destination for golf lovers — beginners and seasoned players alike. Here, your eyes graze the most celebrated fairways, where every hole frames a view onto the legendary green.",
+  },
+  "golf.club.p2": {
+    fr: "Un parcours unique, alliant beauté naturelle et défis techniques, où l'art de bien tenir le club et l'expérience golfique s'élèvent ensemble.",
+    en: "A singular course, blending natural beauty with technical challenge, where craft and golfing experience rise together.",
+  },
+  "golf.club.cta": { fr: "Visiter le site du Rova Golf Club", en: "Visit the Rova Golf Club site" },
+  "golf.gallery.title": { fr: "Galerie photos", en: "Photo gallery" },
+  "golf.gallery.kicker": { fr: "Instantanés du parcours", en: "Course moments" },
+  "golf.cta.title.1": { fr: "Réservez votre", en: "Book your" },
+  "golf.cta.title.2": { fr: "tee-time d'exception.", en: "exceptional tee-time." },
+  "golf.cta.p": {
+    fr: "Notre conciergerie sportive coordonne caddies, voiturettes et leçons privées pour transformer chaque visite en souvenir mémorable.",
+    en: "Our sports concierge coordinates caddies, carts and private lessons so every visit becomes a memorable one.",
+  },
 };
 
 const LangContext = createContext<{ lang: Lang; setLang: (l: Lang) => void; t: (key: string) => string }>({

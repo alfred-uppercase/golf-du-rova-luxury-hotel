@@ -1,11 +1,14 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import heroGolf from "@/assets/hero-golf.jpg";
+import { createFileRoute } from "@tanstack/react-router";
 import heritageWood from "@/assets/heritage-wood.jpg";
 import heritageAerial from "@/assets/heritage-aerial.jpg";
 import expSuite from "@/assets/exp-suite.jpg";
 import expGolf from "@/assets/exp-golf.jpg";
 import expSpa from "@/assets/exp-spa.jpg";
-import { useT, LangSwitcher } from "@/lib/i18n";
+import { useT } from "@/lib/i18n";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
+
+const HOME_HERO_VIDEO = "https://golf-madagascar.mg/wp-content/uploads/2025/02/GOLF-DU-ROVA-SPOT_Final_.mp4";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -15,43 +18,21 @@ function Index() {
   const { t } = useT();
   return (
     <div className="min-h-screen bg-background font-body text-foreground selection:bg-primary/10 selection:text-primary">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 px-6 md:px-10 py-5 flex justify-between items-center bg-background/85 backdrop-blur-md border-b border-border">
-        <div className="flex items-center gap-10">
-          <div className="flex flex-col leading-none">
-            <span className="font-display text-2xl tracking-tight text-primary font-semibold italic">
-              Golf du Rova
-            </span>
-            <span className="font-mono text-[9px] uppercase tracking-[0.3em] mt-1 text-muted-foreground">
-              {t("nav.tagline")}
-            </span>
-          </div>
-          <div className="hidden lg:flex gap-8 text-[11px] uppercase tracking-[0.18em] font-medium text-foreground/80">
-            <a href="#hotel" className="hover:text-primary transition-colors">{t("nav.hotel")}</a>
-            <Link to="/chambres" className="hover:text-primary transition-colors">{t("nav.rooms")}</Link>
-            <Link to="/restaurants" className="hover:text-primary transition-colors">{t("nav.restaurants")}</Link>
-            <a href="#golf" className="hover:text-primary transition-colors">{t("nav.golf")}</a>
-          </div>
-        </div>
-        <div className="flex items-center gap-5">
-          <LangSwitcher />
-          <button className="bg-primary text-primary-foreground px-5 py-2.5 text-[11px] uppercase tracking-[0.2em] font-medium hover:bg-primary/90 transition-all">
-            {t("nav.book")}
-          </button>
-        </div>
-      </nav>
+      <SiteHeader active="hotel" />
 
       {/* Hero */}
       <section className="relative h-screen flex flex-col justify-end pb-44 md:pb-40">
         <div className="absolute inset-0 z-0">
-          <img
-            src={heroGolf}
-            alt="Lever de soleil sur le parcours du Golf du Rova"
-            width={1920}
-            height={1088}
+          <video
+            src={HOME_HERO_VIDEO}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/10 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/20 to-background" />
         </div>
 
         <div
@@ -218,68 +199,7 @@ function Index() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer id="restaurants" className="bg-primary text-primary-foreground pt-24 pb-12 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 mb-20">
-          <div className="lg:col-span-5">
-            <h4 className="font-display text-3xl md:text-4xl mb-6 italic">{t("footer.newsletter.title")}</h4>
-            <p className="text-primary-foreground/60 mb-8 max-w-sm text-sm leading-relaxed">
-              {t("footer.newsletter.p")}
-            </p>
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              className="flex border-b border-primary-foreground/20 pb-2"
-            >
-              <input
-                type="email"
-                placeholder={t("footer.email.placeholder")}
-                className="bg-transparent flex-1 text-[11px] tracking-[0.2em] outline-none placeholder:text-primary-foreground/30"
-              />
-              <button
-                type="submit"
-                className="text-[11px] font-bold tracking-[0.2em] hover:text-accent transition-colors"
-              >
-                {t("footer.subscribe")}
-              </button>
-            </form>
-          </div>
-
-          <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-10 text-[11px] uppercase tracking-[0.2em]">
-            <div className="space-y-4">
-              <h5 className="text-accent font-bold mb-6">{t("footer.col.explore")}</h5>
-              <a href="#hotel" className="block opacity-60 hover:opacity-100 transition-opacity">{t("nav.hotel")}</a>
-              <a href="#golf" className="block opacity-60 hover:opacity-100 transition-opacity">{t("nav.golf")}</a>
-              <a href="#experiences" className="block opacity-60 hover:opacity-100 transition-opacity">{t("nav.experiences")}</a>
-            </div>
-            <div className="space-y-4">
-              <h5 className="text-accent font-bold mb-6">{t("footer.col.services")}</h5>
-              <a href="#" className="block opacity-60 hover:opacity-100 transition-opacity">{t("footer.helicopter")}</a>
-              <a href="#" className="block opacity-60 hover:opacity-100 transition-opacity">{t("footer.events")}</a>
-              <a href="#" className="block opacity-60 hover:opacity-100 transition-opacity">{t("footer.concierge")}</a>
-            </div>
-            <div className="space-y-4">
-              <h5 className="text-accent font-bold mb-6">{t("footer.col.contact")}</h5>
-              <span className="block opacity-60 italic normal-case tracking-normal">
-                Andakana — PK 20, Route de Mahajanga, Antananarivo
-              </span>
-              <span className="block opacity-60">+261 34 20 22 011 90</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="pt-10 border-t border-primary-foreground/10 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex flex-col">
-            <span className="font-display text-lg italic">Golf du Rova</span>
-            <span className="text-[9px] opacity-40 uppercase tracking-[0.25em] mt-1">
-              {t("footer.rights")}
-            </span>
-          </div>
-          <div className="flex gap-8 opacity-50 text-[10px] tracking-[0.2em]">
-            <a href="#" className="hover:opacity-100 transition-opacity">{t("footer.legal")}</a>
-            <a href="#" className="hover:opacity-100 transition-opacity">{t("footer.privacy")}</a>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
