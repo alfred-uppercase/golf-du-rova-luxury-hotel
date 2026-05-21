@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { useT, LangSwitcher } from "@/lib/i18n";
-import logo from "/images/logo-golf-rova.png?url";
+const logo = "/images/logo-golf-rova.png";
 
 type ActiveKey = "hotel" | "rooms" | "restaurants" | "golf" | null;
 

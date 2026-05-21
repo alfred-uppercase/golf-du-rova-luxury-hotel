@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useT } from "@/lib/i18n";
-import logo from "/images/logo-golf-rova.png?url";
+const logo = "/images/logo-golf-rova.png";
 
 export function SiteFooter() {
   const { t } = useT();
