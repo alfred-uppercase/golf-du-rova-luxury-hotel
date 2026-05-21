@@ -258,26 +258,7 @@ function ChambresPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-primary text-primary-foreground pt-20 pb-10 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-10 pb-10 border-b border-primary-foreground/10">
-          <div>
-            <span className="font-display text-2xl italic">Golf du Rova</span>
-            <p className="text-[11px] uppercase tracking-[0.2em] opacity-60 mt-2">
-              Andakana — Antananarivo · +261 34 20 22 011 90
-            </p>
-          </div>
-          <Link
-            to="/"
-            className="text-[11px] uppercase tracking-[0.25em] opacity-70 hover:opacity-100 transition-opacity self-start md:self-center"
-          >
-            {t("footer.back")}
-          </Link>
-        </div>
-        <p className="text-[9px] opacity-40 uppercase tracking-[0.25em] mt-8 text-center md:text-left">
-          {t("footer.copy.short")}
-        </p>
-      </footer>
+      <SiteFooter />
 
       {/* Info modal */}
       {openInfo && active && (
