@@ -1,11 +1,13 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import roomDeluxe from "@/assets/room-deluxe.jpg";
 import roomSuite from "@/assets/room-suite.jpg";
 import roomSignature from "@/assets/room-signature.jpg";
 import roomVilla from "@/assets/room-villa.jpg";
 import roomDetail from "@/assets/room-detail.jpg";
-import { useT, LangSwitcher } from "@/lib/i18n";
+import { useT } from "@/lib/i18n";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
 
 export const Route = createFileRoute("/chambres")({
   head: () => ({
@@ -84,30 +86,7 @@ function ChambresPage() {
   return (
     <div className="min-h-screen bg-background font-body text-foreground selection:bg-primary/10 selection:text-primary">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 px-6 md:px-10 py-5 flex justify-between items-center bg-background/85 backdrop-blur-md border-b border-border">
-        <div className="flex items-center gap-10">
-          <Link to="/" className="flex flex-col leading-none">
-            <span className="font-display text-2xl tracking-tight text-primary font-semibold italic">
-              Golf du Rova
-            </span>
-            <span className="font-mono text-[9px] uppercase tracking-[0.3em] mt-1 text-muted-foreground">
-              {t("nav.tagline")}
-            </span>
-          </Link>
-          <div className="hidden lg:flex gap-8 text-[11px] uppercase tracking-[0.18em] font-medium text-foreground/80">
-            <Link to="/" className="hover:text-primary transition-colors">{t("nav.hotel")}</Link>
-            <Link to="/chambres" className="text-primary">{t("nav.rooms")}</Link>
-            <Link to="/restaurants" className="hover:text-primary transition-colors">{t("nav.restaurants")}</Link>
-            <Link to="/" hash="golf" className="hover:text-primary transition-colors">{t("nav.golf")}</Link>
-          </div>
-        </div>
-        <div className="flex items-center gap-5">
-          <LangSwitcher />
-          <button className="bg-primary text-primary-foreground px-5 py-2.5 text-[11px] uppercase tracking-[0.2em] font-medium hover:bg-primary/90 transition-all">
-            {t("nav.book")}
-          </button>
-        </div>
-      </nav>
+      <SiteHeader active="rooms" />
 
       {/* Hero */}
       <section className="relative pt-40 pb-20 md:pt-52 md:pb-28 px-6 md:px-12 border-b border-border">
