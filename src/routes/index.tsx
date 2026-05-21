@@ -18,43 +18,21 @@ function Index() {
   const { t } = useT();
   return (
     <div className="min-h-screen bg-background font-body text-foreground selection:bg-primary/10 selection:text-primary">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 px-6 md:px-10 py-5 flex justify-between items-center bg-background/85 backdrop-blur-md border-b border-border">
-        <div className="flex items-center gap-10">
-          <div className="flex flex-col leading-none">
-            <span className="font-display text-2xl tracking-tight text-primary font-semibold italic">
-              Golf du Rova
-            </span>
-            <span className="font-mono text-[9px] uppercase tracking-[0.3em] mt-1 text-muted-foreground">
-              {t("nav.tagline")}
-            </span>
-          </div>
-          <div className="hidden lg:flex gap-8 text-[11px] uppercase tracking-[0.18em] font-medium text-foreground/80">
-            <a href="#hotel" className="hover:text-primary transition-colors">{t("nav.hotel")}</a>
-            <Link to="/chambres" className="hover:text-primary transition-colors">{t("nav.rooms")}</Link>
-            <Link to="/restaurants" className="hover:text-primary transition-colors">{t("nav.restaurants")}</Link>
-            <a href="#golf" className="hover:text-primary transition-colors">{t("nav.golf")}</a>
-          </div>
-        </div>
-        <div className="flex items-center gap-5">
-          <LangSwitcher />
-          <button className="bg-primary text-primary-foreground px-5 py-2.5 text-[11px] uppercase tracking-[0.2em] font-medium hover:bg-primary/90 transition-all">
-            {t("nav.book")}
-          </button>
-        </div>
-      </nav>
+      <SiteHeader active="hotel" />
 
       {/* Hero */}
       <section className="relative h-screen flex flex-col justify-end pb-44 md:pb-40">
         <div className="absolute inset-0 z-0">
-          <img
-            src={heroGolf}
-            alt="Lever de soleil sur le parcours du Golf du Rova"
-            width={1920}
-            height={1088}
+          <video
+            src={HOME_HERO_VIDEO}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/10 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/20 to-background" />
         </div>
 
         <div
