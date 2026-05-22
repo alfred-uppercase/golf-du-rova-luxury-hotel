@@ -149,9 +149,13 @@ function RestaurantsPage() {
                   {t("resto.menu.cta")}
                   <span aria-hidden>→</span>
                 </button>
-                <button className="bg-primary text-primary-foreground px-7 py-3.5 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-accent hover:text-accent-foreground transition-all">
+                <Link
+                  to="/reservation"
+                  search={{ restaurant: r.id as "rova" | "asian" | "view", tables: 1 }}
+                  className="bg-primary text-primary-foreground px-7 py-3.5 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-accent hover:text-accent-foreground transition-all"
+                >
                   {t("resto.book.table")}
-                </button>
+                </Link>
               </div>
             </div>
           </article>
@@ -213,9 +217,12 @@ function RestaurantsPage() {
           <p className="text-muted-foreground mb-10 leading-relaxed">
             {t("resto.cta.p")}
           </p>
-          <button className="bg-primary text-primary-foreground px-10 py-4 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-accent hover:text-accent-foreground transition-all">
+          <Link
+            to="/reservation"
+            className="inline-block bg-primary text-primary-foreground px-10 py-4 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-accent hover:text-accent-foreground transition-all"
+          >
             {t("resto.book.table")}
-          </button>
+          </Link>
         </div>
       </section>
 
@@ -241,9 +248,13 @@ function RestaurantsPage() {
               {t("resto.modal.p")}
             </p>
             <div className="flex flex-wrap gap-4">
-              <button className="bg-primary text-primary-foreground px-6 py-3 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-accent hover:text-accent-foreground transition-all">
+              <Link
+                to="/reservation"
+                search={{ restaurant: active.id as "rova" | "asian" | "view", tables: 1 }}
+                className="bg-primary text-primary-foreground px-6 py-3 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-accent hover:text-accent-foreground transition-all"
+              >
                 {t("resto.book.table")}
-              </button>
+              </Link>
               <button
                 onClick={() => setOpenMenu(null)}
                 className="text-[11px] uppercase tracking-[0.25em] font-semibold border-b border-foreground pb-2 hover:text-primary transition-colors"
