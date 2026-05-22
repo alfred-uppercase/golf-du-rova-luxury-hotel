@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as RestaurantsRouteImport } from './routes/restaurants'
+import { Route as ReservationRouteImport } from './routes/reservation'
 import { Route as GolfRouteImport } from './routes/golf'
 import { Route as ChambresRouteImport } from './routes/chambres'
 import { Route as IndexRouteImport } from './routes/index'
@@ -17,6 +18,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const RestaurantsRoute = RestaurantsRouteImport.update({
   id: '/restaurants',
   path: '/restaurants',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReservationRoute = ReservationRouteImport.update({
+  id: '/reservation',
+  path: '/reservation',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GolfRoute = GolfRouteImport.update({
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/chambres': typeof ChambresRoute
   '/golf': typeof GolfRoute
+  '/reservation': typeof ReservationRoute
   '/restaurants': typeof RestaurantsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/chambres': typeof ChambresRoute
   '/golf': typeof GolfRoute
+  '/reservation': typeof ReservationRoute
   '/restaurants': typeof RestaurantsRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,22 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/chambres': typeof ChambresRoute
   '/golf': typeof GolfRoute
+  '/reservation': typeof ReservationRoute
   '/restaurants': typeof RestaurantsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/chambres' | '/golf' | '/restaurants'
+  fullPaths: '/' | '/chambres' | '/golf' | '/reservation' | '/restaurants'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/chambres' | '/golf' | '/restaurants'
-  id: '__root__' | '/' | '/chambres' | '/golf' | '/restaurants'
+  to: '/' | '/chambres' | '/golf' | '/reservation' | '/restaurants'
+  id: '__root__' | '/' | '/chambres' | '/golf' | '/reservation' | '/restaurants'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ChambresRoute: typeof ChambresRoute
   GolfRoute: typeof GolfRoute
+  ReservationRoute: typeof ReservationRoute
   RestaurantsRoute: typeof RestaurantsRoute
 }
 
@@ -76,6 +86,13 @@ declare module '@tanstack/react-router' {
       path: '/restaurants'
       fullPath: '/restaurants'
       preLoaderRoute: typeof RestaurantsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reservation': {
+      id: '/reservation'
+      path: '/reservation'
+      fullPath: '/reservation'
+      preLoaderRoute: typeof ReservationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/golf': {
@@ -106,6 +123,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ChambresRoute: ChambresRoute,
   GolfRoute: GolfRoute,
+  ReservationRoute: ReservationRoute,
   RestaurantsRoute: RestaurantsRoute,
 }
 export const routeTree = rootRouteImport
