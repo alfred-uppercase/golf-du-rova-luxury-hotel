@@ -8,6 +8,32 @@ import roomDetail from "@/assets/room-detail.jpg";
 import { useT } from "@/lib/i18n";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import {
+  X,
+  Wind,
+  Wifi,
+  ShowerHead,
+  Coffee,
+  Wine,
+  Shirt,
+  ShieldCheck,
+  Phone,
+  Tv,
+  TreePalm,
+} from "lucide-react";
+
+const AMENITIES = [
+  { icon: TreePalm, label: "Terrasse / Balcon" },
+  { icon: Shirt, label: "Dressing / Garde-robe" },
+  { icon: Wind, label: "Climatisation" },
+  { icon: ShieldCheck, label: "Coffre-fort individuel" },
+  { icon: Wifi, label: "Accès Wi-Fi" },
+  { icon: Phone, label: "Téléphone avec numérotation directe internationale" },
+  { icon: ShowerHead, label: "Salle d'eau avec douche et toilettes séparées" },
+  { icon: Tv, label: "Télévision à écran plat (avec chaînes satellite)" },
+  { icon: Coffee, label: "Thé & Café" },
+  { icon: Wine, label: "Mini-bar" },
+];
 
 export const Route = createFileRoute("/chambres")({
   head: () => ({
@@ -260,33 +286,51 @@ function ChambresPage() {
 
       <SiteFooter />
 
-      {/* Info modal */}
+      {/* Info modal — Aménagements */}
       {openInfo && active && (
         <div
-          className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm flex items-center justify-center p-6"
+          className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 md:p-6 overflow-y-auto"
           onClick={() => setOpenInfo(null)}
         >
           <div
-            className="bg-background max-w-lg w-full p-10 md:p-12 shadow-2xl"
+            className="relative bg-background max-w-3xl w-full p-8 md:p-14 shadow-2xl my-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent block mb-4">
-              {t(active.catKey)}
+            <button
+              onClick={() => setOpenInfo(null)}
+              className="absolute top-5 right-5 text-foreground/60 hover:text-primary transition-colors"
+              aria-label={t("common.close")}
+            >
+              <X className="size-5" />
+            </button>
+
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent block mb-3">
+              {t(active.catKey)} · {t(active.nameKey)}
             </span>
-            <h3 className="font-display text-3xl md:text-4xl mb-6">{t(active.nameKey)}</h3>
-            <ul className="grid grid-cols-2 gap-3 mb-8 text-[11px] uppercase tracking-[0.18em] text-foreground/80">
-              {active.amenityKeys.map((a) => (
-                <li key={a} className="before:content-['—'] before:mr-2 before:text-accent">
-                  {t(a)}
+            <h3 className="font-display text-3xl md:text-5xl text-primary mb-10 text-center md:text-left">
+              Aménagements <span className="italic">des chambres</span>
+            </h3>
+
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6 mb-10">
+              {AMENITIES.map(({ icon: Icon, label }) => (
+                <li key={label} className="flex items-start gap-4">
+                  <span className="shrink-0 mt-0.5 text-accent">
+                    <Icon className="size-6" strokeWidth={1.4} />
+                  </span>
+                  <span className="text-sm md:text-[15px] leading-relaxed text-foreground/85">
+                    {label}
+                  </span>
                 </li>
               ))}
             </ul>
-            <p className="text-muted-foreground leading-relaxed mb-8 text-sm">
+
+            <p className="text-xs text-muted-foreground leading-relaxed mb-8 italic">
               {t("rooms.modal.p")}
             </p>
+
             <div className="flex flex-wrap gap-4">
-              <button className="bg-primary text-primary-foreground px-6 py-3 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-accent hover:text-accent-foreground transition-all">
-                {t("nav.book")}
+              <button className="bg-primary text-primary-foreground px-7 py-3.5 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-accent hover:text-accent-foreground transition-all">
+                {t("rooms.book")}
               </button>
               <button
                 onClick={() => setOpenInfo(null)}
