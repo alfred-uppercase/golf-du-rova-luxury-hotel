@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { Play } from "lucide-react";
 import heritageWood from "@/assets/heritage-wood.jpg";
 import heritageAerial from "@/assets/heritage-aerial.jpg";
 import expSuite from "@/assets/exp-suite.jpg";
@@ -7,6 +9,7 @@ import expSpa from "@/assets/exp-spa.jpg";
 import { useT } from "@/lib/i18n";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { VideoModal } from "@/components/video-modal";
 
 const HOME_HERO_VIDEO = "https://golf-madagascar.mg/wp-content/uploads/2025/02/GOLF-DU-ROVA-SPOT_Final_.mp4";
 
@@ -16,12 +19,13 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const { t } = useT();
+  const [videoOpen, setVideoOpen] = useState(false);
   return (
     <div className="min-h-screen bg-background font-body text-foreground selection:bg-primary/10 selection:text-primary">
       <SiteHeader active="hotel" />
 
       {/* Hero */}
-      <section className="relative h-screen flex flex-col justify-end pb-44 md:pb-40">
+      <section className="group/hero relative h-screen flex flex-col justify-end pb-44 md:pb-40">
         <div className="absolute inset-0 z-0">
           <video
             src={HOME_HERO_VIDEO}
@@ -34,6 +38,15 @@ function Index() {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/20 to-background" />
         </div>
+
+        <button
+          type="button"
+          onClick={() => setVideoOpen(true)}
+          className="absolute top-24 right-5 md:top-28 md:right-10 z-20 flex items-center gap-3 bg-white/10 backdrop-blur border border-white/30 text-white px-5 py-3 text-[10px] uppercase tracking-[0.25em] opacity-0 group-hover/hero:opacity-100 hover:bg-accent hover:border-accent hover:text-accent-foreground transition-all duration-500"
+        >
+          <Play className="h-4 w-4 fill-current" />
+          {t("hero.watch.video")}
+        </button>
 
         <div
           className="relative z-10 px-6 md:px-12 max-w-6xl"
@@ -200,6 +213,7 @@ function Index() {
       </section>
 
       <SiteFooter />
+      <VideoModal src={HOME_HERO_VIDEO} open={videoOpen} onClose={() => setVideoOpen(false)} />
     </div>
   );
 }
