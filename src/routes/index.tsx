@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { Play } from "lucide-react";
 import heritageWood from "@/assets/heritage-wood.jpg";
 import heritageAerial from "@/assets/heritage-aerial.jpg";
 import expSuite from "@/assets/exp-suite.jpg";
@@ -7,6 +9,7 @@ import expSpa from "@/assets/exp-spa.jpg";
 import { useT } from "@/lib/i18n";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { VideoModal } from "@/components/video-modal";
 
 const HOME_HERO_VIDEO = "https://golf-madagascar.mg/wp-content/uploads/2025/02/GOLF-DU-ROVA-SPOT_Final_.mp4";
 
@@ -16,6 +19,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const { t } = useT();
+  const [videoOpen, setVideoOpen] = useState(false);
   return (
     <div className="min-h-screen bg-background font-body text-foreground selection:bg-primary/10 selection:text-primary">
       <SiteHeader active="hotel" />
