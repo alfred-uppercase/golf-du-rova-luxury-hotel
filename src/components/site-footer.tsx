@@ -54,14 +54,11 @@ export function SiteFooter() {
       </div>
 
       <div className="pt-10 border-t border-primary-foreground/10 flex flex-col md:flex-row justify-between items-center gap-6">
-        <div className="flex items-center gap-3">
-          <img src={logo} alt="Golf du Rova" className="h-10 w-auto" />
-          <div className="flex flex-col">
-            <span className="font-display text-lg italic">Golf du Rova</span>
-            <span className="text-[9px] opacity-40 uppercase tracking-[0.25em] mt-1">
-              {t("footer.rights")}
-            </span>
-          </div>
+        <div className="flex items-center gap-4">
+          <img src={logo} alt="Golf du Rova" className="h-12 w-auto" />
+          <span className="text-[9px] opacity-40 uppercase tracking-[0.25em]">
+            {t("footer.rights")}
+          </span>
         </div>
         <div className="flex gap-8 opacity-50 text-[10px] tracking-[0.2em]">
           <a href="#" className="hover:opacity-100 transition-opacity">{t("footer.legal")}</a>

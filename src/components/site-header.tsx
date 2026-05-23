@@ -26,7 +26,7 @@ export function SiteHeader({ active = null }: { active?: ActiveKey }) {
     <>
       <nav className="fixed top-0 w-full z-50 px-5 md:px-10 py-4 md:py-5 flex justify-between items-center bg-background/85 backdrop-blur-md border-b border-border">
         <div className="flex items-center gap-10">
-          <Link to="/" className="flex items-center gap-3 leading-none">
+          <Link to="/" className="flex items-center leading-none">
             <img
               src={logo}
               alt="Golf du Rova"
@@ -34,14 +34,6 @@ export function SiteHeader({ active = null }: { active?: ActiveKey }) {
               height={44}
               className="h-10 w-auto md:h-11"
             />
-            <span className="hidden sm:flex flex-col">
-              <span className="font-display text-xl md:text-2xl tracking-tight text-primary font-semibold italic">
-                Golf du Rova
-              </span>
-              <span className="font-mono text-[9px] uppercase tracking-[0.3em] mt-1 text-muted-foreground">
-                {t("nav.tagline")}
-              </span>
-            </span>
           </Link>
           <div className="hidden lg:flex gap-8 text-[11px] uppercase tracking-[0.18em] font-medium text-foreground/80">
             <Link to="/" className={linkCls("hotel")}>{t("nav.hotel")}</Link>
@@ -82,9 +74,8 @@ export function SiteHeader({ active = null }: { active?: ActiveKey }) {
           }`}
         >
           <div className="flex items-center justify-between px-6 py-5 border-b border-border">
-            <Link to="/" onClick={() => setOpen(false)} className="flex items-center gap-3">
+            <Link to="/" onClick={() => setOpen(false)} className="flex items-center">
               <img src={logo} alt="Golf du Rova" className="h-10 w-auto" />
-              <span className="font-display text-xl italic text-primary">Golf du Rova</span>
             </Link>
             <button
               type="button"
