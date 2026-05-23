@@ -25,7 +25,7 @@ function Index() {
       <SiteHeader active="hotel" />
 
       {/* Hero */}
-      <section className="relative h-screen flex flex-col justify-end pb-44 md:pb-40">
+      <section className="group/hero relative h-screen flex flex-col justify-end pb-44 md:pb-40">
         <div className="absolute inset-0 z-0">
           <video
             src={HOME_HERO_VIDEO}
@@ -38,6 +38,15 @@ function Index() {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/20 to-background" />
         </div>
+
+        <button
+          type="button"
+          onClick={() => setVideoOpen(true)}
+          className="absolute top-24 right-5 md:top-28 md:right-10 z-20 flex items-center gap-3 bg-white/10 backdrop-blur border border-white/30 text-white px-5 py-3 text-[10px] uppercase tracking-[0.25em] opacity-0 group-hover/hero:opacity-100 hover:bg-accent hover:border-accent hover:text-accent-foreground transition-all duration-500"
+        >
+          <Play className="h-4 w-4 fill-current" />
+          {t("hero.watch.video")}
+        </button>
 
         <div
           className="relative z-10 px-6 md:px-12 max-w-6xl"
