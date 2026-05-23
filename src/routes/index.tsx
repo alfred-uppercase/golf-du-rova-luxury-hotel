@@ -213,6 +213,7 @@ function Index() {
       </section>
 
       <SiteFooter />
+      <VideoModal src={HOME_HERO_VIDEO} open={videoOpen} onClose={() => setVideoOpen(false)} />
     </div>
   );
 }
