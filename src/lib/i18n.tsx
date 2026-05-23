@@ -13,6 +13,7 @@ const D: Dict = {
   "nav.experiences": { fr: "Expériences", en: "Experiences" },
   "nav.book": { fr: "Réserver", en: "Book" },
   "nav.tagline": { fr: "Madagascar · Est. 1930", en: "Madagascar · Est. 1930" },
+  "hero.watch.video": { fr: "Voir la vidéo", en: "Watch the video" },
 
   // Home — Hero
   "home.kicker": { fr: "Hôtel 5 étoiles · Antananarivo", en: "5-star Hotel · Antananarivo" },
