@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Play } from "lucide-react";
+import { ExternalLink, Play, Star } from "lucide-react";
 import heritageWood from "@/assets/heritage-wood.jpg";
 import heritageAerial from "@/assets/heritage-aerial.jpg";
 import expSuite from "@/assets/exp-suite.jpg";
@@ -12,8 +12,25 @@ import { SiteFooter } from "@/components/site-footer";
 import { VideoModal } from "@/components/video-modal";
 
 const HOME_HERO_VIDEO = "https://golf-madagascar.mg/wp-content/uploads/2025/02/GOLF-DU-ROVA-SPOT_Final_.mp4";
+const GOOGLE_REVIEWS_URL = "https://www.google.com/travel/hotels/entity/CgoIoeGIqsKsu8JNEAE/reviews?q=golf%20du%20rova%20luxury%20hotel&hl=fr-MG&gl=mg";
+
+const REVIEWS = [
+  { author: "Zahirah", location: "Maurice", quoteKey: "home.review.1" },
+  { author: "Julia", location: "Madagascar", quoteKey: "home.review.2" },
+  { author: "Philippe", location: "Pologne", quoteKey: "home.review.3" },
+];
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Golf du Rova — Hôtel 5 étoiles à Madagascar" },
+      { name: "description", content: "Luxe, authenticité : découvrez Madagascar sous un nouveau jour au Golf du Rova, hôtel 5 étoiles et parcours 18 trous." },
+      { property: "og:title", content: "Golf du Rova — Hôtel 5 étoiles à Madagascar" },
+      { property: "og:description", content: "Là où l’élégance rencontre l’histoire, au cœur des hauts plateaux malgaches." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
@@ -55,7 +72,7 @@ function Index() {
           <span className="font-mono text-[10px] uppercase tracking-[0.35em] text-white/80 block mb-6">
             {t("home.kicker")}
           </span>
-          <h1 className="font-display text-white text-5xl md:text-7xl lg:text-8xl text-balance leading-[0.95] tracking-tight mb-8">
+          <h1 className="font-display text-white text-4xl md:text-6xl lg:text-7xl text-balance leading-[1] tracking-tight mb-8 max-w-5xl">
             {t("home.title.1")} <br />
             <span className="italic text-accent">{t("home.title.2")}</span>
           </h1>
@@ -207,6 +224,38 @@ function Index() {
                   {s.v}
                 </p>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-stone-soft py-24 md:py-32 px-6 md:px-12" aria-labelledby="guest-reviews-title">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
+            <div>
+              <span className="font-mono text-[11px] text-accent uppercase tracking-[0.3em] block mb-5">
+                {t("home.reviews.kicker")}
+              </span>
+              <h2 id="guest-reviews-title" className="font-display text-4xl md:text-5xl leading-tight">
+                {t("home.reviews.title.1")} <span className="italic">{t("home.reviews.title.2")}</span>
+              </h2>
+            </div>
+            <a href={GOOGLE_REVIEWS_URL} target="_blank" rel="noreferrer" className="inline-flex items-center gap-3 self-start md:self-auto text-[11px] uppercase tracking-[0.2em] font-semibold border-b border-primary pb-2 hover:text-primary transition-colors">
+              {t("home.reviews.google")}<ExternalLink className="size-4" aria-hidden="true" />
+            </a>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 border-y border-border md:divide-x md:divide-border">
+            {REVIEWS.map((review) => (
+              <figure key={review.author} className="py-10 md:px-8 first:pl-0 last:pr-0 border-b last:border-b-0 md:border-b-0 border-border">
+                <div className="flex gap-1 text-accent mb-7" aria-label="5 étoiles sur 5">
+                  {Array.from({ length: 5 }).map((_, index) => <Star key={index} className="size-4 fill-current" aria-hidden="true" />)}
+                </div>
+                <blockquote className="font-display text-xl leading-relaxed mb-8">“{t(review.quoteKey)}”</blockquote>
+                <figcaption>
+                  <span className="block text-sm font-semibold">{review.author}</span>
+                  <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">{review.location} · {t("home.reviews.source")}</span>
+                </figcaption>
+              </figure>
             ))}
           </div>
         </div>
