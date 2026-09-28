@@ -16,6 +16,10 @@ export const Route = createFileRoute("/reservation")({
     meta: [
       { title: "Réservation — Golf du Rova, Madagascar" },
       { name: "description", content: "Réservez votre table dans nos restaurants d'exception au Golf du Rova." },
+      { property: "og:title", content: "Réservation de table — Golf du Rova" },
+      { property: "og:description", content: "Demandez votre réservation à La Table du Rova, Asian Gourmet ou The View Bar Lounge." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: ReservationPage,

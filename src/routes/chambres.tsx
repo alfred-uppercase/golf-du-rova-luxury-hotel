@@ -1,10 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import roomDeluxe from "@/assets/room-deluxe.jpg";
-import roomSuite from "@/assets/room-suite.jpg";
 import roomSignature from "@/assets/room-signature.jpg";
 import roomVilla from "@/assets/room-villa.jpg";
-import roomDetail from "@/assets/room-detail.jpg";
 import { useT } from "@/lib/i18n";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -23,16 +21,16 @@ import {
 } from "lucide-react";
 
 const AMENITIES = [
-  { icon: TreePalm, label: "Terrasse / Balcon" },
-  { icon: Shirt, label: "Dressing / Garde-robe" },
-  { icon: Wind, label: "Climatisation" },
-  { icon: ShieldCheck, label: "Coffre-fort individuel" },
-  { icon: Wifi, label: "Accès Wi-Fi" },
-  { icon: Phone, label: "Téléphone avec numérotation directe internationale" },
-  { icon: ShowerHead, label: "Salle d'eau avec douche et toilettes séparées" },
-  { icon: Tv, label: "Télévision à écran plat (avec chaînes satellite)" },
-  { icon: Coffee, label: "Thé & Café" },
-  { icon: Wine, label: "Mini-bar" },
+  { icon: TreePalm, key: "rooms.amenity.terrace" },
+  { icon: Shirt, key: "rooms.amenity.dressing" },
+  { icon: Wind, key: "rooms.amenity.ac" },
+  { icon: ShieldCheck, key: "rooms.amenity.safe" },
+  { icon: Wifi, key: "rooms.amenity.wifi" },
+  { icon: Phone, key: "rooms.amenity.phone" },
+  { icon: ShowerHead, key: "rooms.amenity.shower" },
+  { icon: Tv, key: "rooms.amenity.tv" },
+  { icon: Coffee, key: "rooms.amenity.coffee" },
+  { icon: Wine, key: "rooms.amenity.minibar" },
 ];
 
 export const Route = createFileRoute("/chambres")({
@@ -50,6 +48,8 @@ export const Route = createFileRoute("/chambres")({
         content:
           "Quatre catégories d'hébergement d'exception, du Deluxe Heritage à la Villa Privée avec piscine.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: ChambresPage,
@@ -60,47 +60,23 @@ type Room = {
   index: string;
   nameKey: string;
   catKey: string;
-  surface: string;
-  capKey: string;
-  viewKey: string;
   altKey: string;
   descKey: string;
-  amenityKeys: string[];
   img: string;
 };
 
 const rooms: Room[] = [
   {
-    id: "deluxe", index: "01",
-    nameKey: "rm.deluxe.name", catKey: "rm.deluxe.cat", surface: "42 m²",
-    capKey: "rm.deluxe.cap", viewKey: "rm.deluxe.view", altKey: "rm.deluxe.alt",
-    descKey: "rm.deluxe.desc",
-    amenityKeys: ["rm.deluxe.a1", "rm.deluxe.a2", "rm.deluxe.a3", "rm.deluxe.a4"],
-    img: roomDeluxe,
+    id: "golf", index: "01", nameKey: "rm.golf.name", catKey: "rm.golf.cat",
+    altKey: "rm.golf.alt", descKey: "rm.golf.desc", img: roomSignature,
   },
   {
-    id: "suite", index: "02",
-    nameKey: "rm.suite.name", catKey: "rm.suite.cat", surface: "68 m²",
-    capKey: "rm.suite.cap", viewKey: "rm.suite.view", altKey: "rm.suite.alt",
-    descKey: "rm.suite.desc",
-    amenityKeys: ["rm.suite.a1", "rm.suite.a2", "rm.suite.a3", "rm.suite.a4"],
-    img: roomSuite,
+    id: "rural", index: "02", nameKey: "rm.rural.name", catKey: "rm.rural.cat",
+    altKey: "rm.rural.alt", descKey: "rm.rural.desc", img: roomDeluxe,
   },
   {
-    id: "signature", index: "03",
-    nameKey: "rm.signature.name", catKey: "rm.signature.cat", surface: "92 m²",
-    capKey: "rm.signature.cap", viewKey: "rm.signature.view", altKey: "rm.signature.alt",
-    descKey: "rm.signature.desc",
-    amenityKeys: ["rm.signature.a1", "rm.signature.a2", "rm.signature.a3", "rm.signature.a4"],
-    img: roomSignature,
-  },
-  {
-    id: "villa", index: "04",
-    nameKey: "rm.villa.name", catKey: "rm.villa.cat", surface: "180 m²",
-    capKey: "rm.villa.cap", viewKey: "rm.villa.view", altKey: "rm.villa.alt",
-    descKey: "rm.villa.desc",
-    amenityKeys: ["rm.villa.a1", "rm.villa.a2", "rm.villa.a3", "rm.villa.a4"],
-    img: roomVilla,
+    id: "forest", index: "03", nameKey: "rm.forest.name", catKey: "rm.forest.cat",
+    altKey: "rm.forest.alt", descKey: "rm.forest.desc", img: roomVilla,
   },
 ];
 
@@ -172,39 +148,6 @@ function ChambresPage() {
                 {t(r.descKey)}
               </p>
 
-              {/* Specs */}
-              <dl className="grid grid-cols-3 gap-6 mb-10 border-y border-border py-6">
-                <div>
-                  <dt className="font-mono text-[9px] uppercase tracking-[0.25em] text-muted-foreground mb-1">
-                    {t("rooms.spec.surface")}
-                  </dt>
-                  <dd className="font-display text-lg">{r.surface}</dd>
-                </div>
-                <div>
-                  <dt className="font-mono text-[9px] uppercase tracking-[0.25em] text-muted-foreground mb-1">
-                    {t("rooms.spec.capacity")}
-                  </dt>
-                  <dd className="font-display text-lg">{t(r.capKey)}</dd>
-                </div>
-                <div>
-                  <dt className="font-mono text-[9px] uppercase tracking-[0.25em] text-muted-foreground mb-1">
-                    {t("rooms.spec.view")}
-                  </dt>
-                  <dd className="font-display text-lg">{t(r.viewKey)}</dd>
-                </div>
-              </dl>
-
-              <ul className="flex flex-wrap gap-x-5 gap-y-2 mb-10">
-                {r.amenityKeys.map((a) => (
-                  <li
-                    key={a}
-                    className="text-[11px] uppercase tracking-[0.18em] text-foreground/70 before:content-['—'] before:mr-2 before:text-accent"
-                  >
-                    {t(a)}
-                  </li>
-                ))}
-              </ul>
-
               <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
                 <button
                   onClick={() => setOpenInfo(r.id)}
@@ -220,42 +163,6 @@ function ChambresPage() {
             </div>
           </article>
         ))}
-      </section>
-
-      {/* L'art du détail */}
-      <section className="bg-stone-soft py-24 md:py-32 px-6 md:px-12">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          <div className="lg:col-span-5 order-2 lg:order-1">
-            <span className="font-mono text-[11px] text-accent uppercase tracking-[0.3em] block mb-6">
-              {t("rooms.art.kicker")}
-            </span>
-            <h2 className="font-display text-4xl md:text-5xl leading-tight text-balance mb-8">
-              {t("rooms.art.title.1")} <span className="italic">{t("rooms.art.title.2")}</span>
-            </h2>
-            <div className="space-y-5 text-muted-foreground leading-relaxed text-pretty max-w-[55ch]">
-              <p>{t("rooms.art.p1")}</p>
-              <p>{t("rooms.art.p2")}</p>
-            </div>
-            <ul className="grid grid-cols-2 gap-4 mt-10 text-[11px] uppercase tracking-[0.2em] text-foreground/80">
-              <li>{t("rooms.feat.1")}</li>
-              <li>{t("rooms.feat.2")}</li>
-              <li>{t("rooms.feat.3")}</li>
-              <li>{t("rooms.feat.4")}</li>
-              <li>{t("rooms.feat.5")}</li>
-              <li>{t("rooms.feat.6")}</li>
-            </ul>
-          </div>
-          <div className="lg:col-span-7 order-1 lg:order-2">
-            <img
-              src={roomDetail}
-              alt="Détail de salle de bain en marbre avec robinetterie en laiton"
-              width={1280}
-              height={1600}
-              loading="lazy"
-              className="w-full aspect-[4/5] object-cover shadow-sm"
-            />
-          </div>
-        </div>
       </section>
 
       {/* CTA */}
@@ -308,17 +215,17 @@ function ChambresPage() {
               {t(active.catKey)} · {t(active.nameKey)}
             </span>
             <h3 className="font-display text-3xl md:text-5xl text-primary mb-10 text-center md:text-left">
-              Aménagements <span className="italic">des chambres</span>
+              {t("rooms.modal.title.1")} <span className="italic">{t("rooms.modal.title.2")}</span>
             </h3>
 
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6 mb-10">
-              {AMENITIES.map(({ icon: Icon, label }) => (
-                <li key={label} className="flex items-start gap-4">
+              {AMENITIES.map(({ icon: Icon, key }) => (
+                <li key={key} className="flex items-start gap-4">
                   <span className="shrink-0 mt-0.5 text-accent">
                     <Icon className="size-6" strokeWidth={1.4} />
                   </span>
                   <span className="text-sm md:text-[15px] leading-relaxed text-foreground/85">
-                    {label}
+                    {t(key)}
                   </span>
                 </li>
               ))}

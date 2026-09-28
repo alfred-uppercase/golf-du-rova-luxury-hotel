@@ -8,6 +8,8 @@ import { useT } from "@/lib/i18n";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 
+const RESTAURANT_VIDEO = "https://golf-madagascar.mg/wp-content/uploads/2024/11/Restaurant_1.mp4";
+
 export const Route = createFileRoute("/restaurants")({
   head: () => ({
     meta: [
@@ -23,6 +25,8 @@ export const Route = createFileRoute("/restaurants")({
         content:
           "Voyage culinaire à travers nos trois restaurants étoilés au cœur des hauts plateaux malgaches.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: RestaurantsPage,
@@ -77,21 +81,23 @@ function RestaurantsPage() {
     <div className="min-h-screen bg-background font-body text-foreground selection:bg-primary/10 selection:text-primary">
       <SiteHeader active="restaurants" />
 
-      {/* Hero */}
-      <section className="relative pt-40 pb-20 md:pt-52 md:pb-28 px-6 md:px-12 border-b border-border">
-        <div className="max-w-6xl mx-auto" style={{ animation: "var(--animate-fade-up)" }}>
+      {/* Hero video */}
+      <section className="relative min-h-[720px] h-[92vh] flex items-end overflow-hidden px-6 md:px-12 pb-20 md:pb-24">
+        <video src={RESTAURANT_VIDEO} autoPlay muted loop playsInline preload="auto" className="absolute inset-0 size-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/30 to-black/80" />
+        <div className="relative z-10 max-w-6xl mx-auto w-full text-white" style={{ animation: "var(--animate-fade-up)" }}>
           <span className="font-mono text-[10px] uppercase tracking-[0.35em] text-accent block mb-6">
             {t("resto.kicker")}
           </span>
           <h1 className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight text-balance mb-10">
             {t("resto.title.1")} <br />
-            <span className="italic text-primary">{t("resto.title.2")}</span>
+            <span className="italic text-accent">{t("resto.title.2")}</span>
           </h1>
           <div className="grid md:grid-cols-2 gap-10 max-w-5xl">
-            <p className="text-muted-foreground text-pretty leading-relaxed text-lg">
+            <p className="text-white/90 text-pretty leading-relaxed text-lg">
               {t("resto.intro.1")}
             </p>
-            <p className="text-muted-foreground text-pretty leading-relaxed">
+            <p className="text-white/75 text-pretty leading-relaxed">
               {t("resto.intro.2")}
             </p>
           </div>

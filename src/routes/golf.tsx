@@ -39,20 +39,20 @@ export const Route = createFileRoute("/golf")({
 const HERO_VIDEO = "https://golf-madagascar.mg/wp-content/uploads/2024/11/Golf.mp4";
 
 const gallery = [
-  { src: g1, alt: "Vue aérienne du parcours" },
-  { src: g2, alt: "Détail club et gant" },
-  { src: g3, alt: "Pro Shop — couvre-clubs" },
-  { src: g4, alt: "Practice Le Swing au coucher du soleil" },
-  { src: g5, alt: "Drapeau rouge sur le green" },
-  { src: g6, alt: "Le Clubhouse" },
-  { src: g7, alt: "Sortie de bunker" },
-  { src: g8, alt: "Vue aérienne du tracé" },
-  { src: g9, alt: "Joueurs sur le fairway" },
-  { src: g10, alt: "Putting green au soleil couchant" },
+  { src: g1, fr: "Vue aérienne du parcours", en: "Aerial view of the course" },
+  { src: g2, fr: "Détail club et gant", en: "Club and glove detail" },
+  { src: g3, fr: "Pro Shop — couvre-clubs", en: "Pro Shop — club covers" },
+  { src: g4, fr: "Practice Le Swing au coucher du soleil", en: "Le Swing practice range at sunset" },
+  { src: g5, fr: "Drapeau rouge sur le green", en: "Red flag on the green" },
+  { src: g6, fr: "Le Clubhouse", en: "The Clubhouse" },
+  { src: g7, fr: "Sortie de bunker", en: "Bunker shot" },
+  { src: g8, fr: "Vue aérienne du tracé", en: "Aerial view of the layout" },
+  { src: g9, fr: "Joueurs sur le fairway", en: "Players on the fairway" },
+  { src: g10, fr: "Putting green au soleil couchant", en: "Putting green at sunset" },
 ];
 
 function GolfPage() {
-  const { t } = useT();
+  const { t, lang } = useT();
   const [lightbox, setLightbox] = useState<number | null>(null);
   const [videoOpen, setVideoOpen] = useState(false);
 
