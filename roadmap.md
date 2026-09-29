@@ -6,4 +6,4 @@
 - [x] Traduire les fenêtres et équipements des chambres
 - [x] Ajouter la vidéo de fond aux restaurants
 - [x] Finaliser la galerie golf bilingue
-- [ ] Vérifier les pages en français et en anglais sur ordinateur et mobile
+- [x] Vérifier les pages en français et en anglais sur ordinateur et mobile
