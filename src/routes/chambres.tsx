@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import roomDeluxe from "@/assets/room-deluxe.jpg";
 import roomSignature from "@/assets/room-signature.jpg";
 import roomVilla from "@/assets/room-villa.jpg";
@@ -84,6 +84,19 @@ function ChambresPage() {
   const { t } = useT();
   const [openInfo, setOpenInfo] = useState<string | null>(null);
   const active = rooms.find((x) => x.id === openInfo);
+
+  useEffect(() => {
+    if (!openInfo) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpenInfo(null);
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [openInfo]);
 
   return (
     <div className="min-h-screen bg-background font-body text-foreground selection:bg-primary/10 selection:text-primary">
@@ -196,6 +209,9 @@ function ChambresPage() {
       {/* Info modal — Aménagements */}
       {openInfo && active && (
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="room-amenities-title"
           className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 md:p-6 overflow-y-auto"
           onClick={() => setOpenInfo(null)}
         >
@@ -214,7 +230,7 @@ function ChambresPage() {
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent block mb-3">
               {t(active.catKey)} · {t(active.nameKey)}
             </span>
-            <h3 className="font-display text-3xl md:text-5xl text-primary mb-10 text-center md:text-left">
+            <h3 id="room-amenities-title" className="font-display text-3xl md:text-5xl text-primary mb-10 text-center md:text-left">
               {t("rooms.modal.title.1")} <span className="italic">{t("rooms.modal.title.2")}</span>
             </h3>
 
