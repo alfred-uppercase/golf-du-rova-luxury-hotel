@@ -31,6 +31,8 @@ export const Route = createFileRoute("/golf")({
         content:
           "Une institution centenaire à 30 minutes d'Antananarivo. Découvrez le parcours, le practice Le Swing et le Pro Shop.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: GolfPage,
@@ -251,11 +253,12 @@ function GolfPage() {
                 key={img.src}
                 type="button"
                 onClick={() => setLightbox(i)}
+                aria-label={`${t("golf.gallery.open")} ${i + 1}: ${img[lang]}`}
                 className="group relative mb-3 md:mb-4 block w-full overflow-hidden break-inside-avoid focus:outline-none focus:ring-2 focus:ring-accent"
               >
                 <img
                   src={img.src}
-                  alt={img.alt}
+                  alt={img[lang]}
                   loading="lazy"
                   className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                 />
@@ -299,7 +302,7 @@ function GolfPage() {
           <button
             type="button"
             onClick={close}
-            aria-label="Fermer"
+            aria-label={t("golf.gallery.close")}
             className="absolute top-5 right-5 md:top-8 md:right-8 text-white/80 hover:text-white p-2"
           >
             <X className="h-7 w-7" />
@@ -310,7 +313,7 @@ function GolfPage() {
               e.stopPropagation();
               prev();
             }}
-            aria-label="Précédent"
+            aria-label={t("golf.gallery.previous")}
             className="absolute left-3 md:left-8 top-1/2 -translate-y-1/2 text-white/80 hover:text-white p-3 bg-white/5 hover:bg-white/15 rounded-full backdrop-blur"
           >
             <ChevronLeft className="h-7 w-7" />
@@ -321,7 +324,7 @@ function GolfPage() {
               e.stopPropagation();
               next();
             }}
-            aria-label="Suivant"
+            aria-label={t("golf.gallery.next")}
             className="absolute right-3 md:right-8 top-1/2 -translate-y-1/2 text-white/80 hover:text-white p-3 bg-white/5 hover:bg-white/15 rounded-full backdrop-blur"
           >
             <ChevronRight className="h-7 w-7" />
@@ -333,11 +336,11 @@ function GolfPage() {
             <img
               key={gallery[lightbox].src}
               src={gallery[lightbox].src}
-              alt={gallery[lightbox].alt}
+              alt={gallery[lightbox][lang]}
               className="max-h-[80vh] w-auto mx-auto object-contain shadow-2xl"
             />
             <figcaption className="mt-5 text-center text-white/70 text-[11px] uppercase tracking-[0.3em] font-mono">
-              [ {String(lightbox + 1).padStart(2, "0")} / {String(gallery.length).padStart(2, "0")} ] · {gallery[lightbox].alt}
+              [ {String(lightbox + 1).padStart(2, "0")} / {String(gallery.length).padStart(2, "0")} ] · {gallery[lightbox][lang]}
             </figcaption>
           </figure>
         </div>

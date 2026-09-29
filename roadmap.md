@@ -5,5 +5,5 @@
 - [x] Aligner la page chambres sur les contenus officiels
 - [x] Traduire les fenêtres et équipements des chambres
 - [x] Ajouter la vidéo de fond aux restaurants
-- [ ] Finaliser et vérifier la galerie golf bilingue
-- [ ] Vérifier les pages en français et en anglais sur ordinateur et mobile
+- [x] Finaliser la galerie golf bilingue
+- [x] Vérifier les pages en français et en anglais sur ordinateur et mobile
