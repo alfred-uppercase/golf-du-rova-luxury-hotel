@@ -40,13 +40,13 @@ export const Route = createFileRoute("/chambres")({
       {
         name: "description",
         content:
-          "Découvrez nos chambres, suites et villas privées : un sanctuaire de luxe ouvert sur les hauts plateaux malgaches, fondé en 1930.",
+          "Découvrez les chambres du Golf du Rova avec vue sur le parcours, le massif rural ou la forêt malgache.",
       },
       { property: "og:title", content: "Chambres & Suites — Golf du Rova" },
       {
         property: "og:description",
         content:
-          "Quatre catégories d'hébergement d'exception, du Deluxe Heritage à la Villa Privée avec piscine.",
+          "Trois horizons pour votre séjour : le parcours de golf, le massif rural et la forêt.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
