@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ExternalLink, Play, Star } from "lucide-react";
+import { ExternalLink, Play } from "lucide-react";
 import heritageWood from "@/assets/heritage-wood.jpg";
 import heritageAerial from "@/assets/heritage-aerial.jpg";
 import expSuite from "@/assets/exp-suite.jpg";
@@ -15,9 +15,9 @@ const HOME_HERO_VIDEO = "https://golf-madagascar.mg/wp-content/uploads/2025/02/G
 const GOOGLE_REVIEWS_URL = "https://www.google.com/travel/hotels/entity/CgoIoeGIqsKsu8JNEAE/reviews?q=golf%20du%20rova%20luxury%20hotel&hl=fr-MG&gl=mg";
 
 const REVIEWS = [
-  { author: "Zahirah", location: "Maurice", quoteKey: "home.review.1" },
-  { author: "Julia", location: "Madagascar", quoteKey: "home.review.2" },
-  { author: "Philippe", location: "Pologne", quoteKey: "home.review.3" },
+  { author: "Zahirah", locationKey: "home.review.location.mauritius", quoteKey: "home.review.1" },
+  { author: "Julia", locationKey: "home.review.location.madagascar", quoteKey: "home.review.2" },
+  { author: "Philippe", locationKey: "home.review.location.poland", quoteKey: "home.review.3" },
 ];
 
 export const Route = createFileRoute("/")({
@@ -247,13 +247,10 @@ function Index() {
           <div className="grid grid-cols-1 md:grid-cols-3 border-y border-border md:divide-x md:divide-border">
             {REVIEWS.map((review) => (
               <figure key={review.author} className="py-10 md:px-8 first:pl-0 last:pr-0 border-b last:border-b-0 md:border-b-0 border-border">
-                <div className="flex gap-1 text-accent mb-7" aria-label="5 étoiles sur 5">
-                  {Array.from({ length: 5 }).map((_, index) => <Star key={index} className="size-4 fill-current" aria-hidden="true" />)}
-                </div>
                 <blockquote className="font-display text-xl leading-relaxed mb-8">“{t(review.quoteKey)}”</blockquote>
                 <figcaption>
                   <span className="block text-sm font-semibold">{review.author}</span>
-                  <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">{review.location} · {t("home.reviews.source")}</span>
+                  <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">{t(review.locationKey)} · {t("home.reviews.source")}</span>
                 </figcaption>
               </figure>
             ))}
