@@ -10,6 +10,7 @@ import { useT } from "@/lib/i18n";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { VideoModal } from "@/components/video-modal";
+import { BOOKING_URL } from "@/lib/booking";
 
 const HOME_HERO_VIDEO = "https://golf-madagascar.mg/wp-content/uploads/2025/02/GOLF-DU-ROVA-SPOT_Final_.mp4";
 const GOOGLE_REVIEWS_URL = "https://www.google.com/travel/hotels/entity/CgoIoeGIqsKsu8JNEAE/reviews?q=golf%20du%20rova%20luxury%20hotel&hl=fr-MG&gl=mg";
@@ -99,9 +100,9 @@ function Index() {
                 <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-1">{t("home.guests")}</p>
                 <p className="font-display text-lg">{t("home.adults")}</p>
               </div>
-              <button className="flex-1 bg-accent text-accent-foreground uppercase tracking-[0.2em] text-[11px] font-bold hover:bg-primary hover:text-primary-foreground transition-all duration-500 px-6 py-5">
+              <a href={BOOKING_URL} target="_blank" rel="noreferrer" className="flex flex-1 items-center justify-center bg-accent text-accent-foreground uppercase tracking-[0.2em] text-[11px] font-bold hover:bg-primary hover:text-primary-foreground transition-all duration-500 px-6 py-5 text-center">
                 {t("home.check.availability")}
-              </button>
+              </a>
             </div>
           </div>
         </div>

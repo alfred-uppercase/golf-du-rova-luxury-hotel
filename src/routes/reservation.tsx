@@ -4,6 +4,7 @@ import { z } from "zod";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { useT } from "@/lib/i18n";
+import { BOOKING_URL } from "@/lib/booking";
 
 const searchSchema = z.object({
   restaurant: z.enum(["rova", "asian", "view"]).optional(),
@@ -225,12 +226,14 @@ function ReservationPage() {
               </div>
 
               <div className="flex flex-wrap gap-4 pt-4">
-                <button
-                  type="submit"
+                <a
+                  href={BOOKING_URL}
+                  target="_blank"
+                  rel="noreferrer"
                   className="bg-primary text-primary-foreground px-10 py-4 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-accent hover:text-accent-foreground transition-all"
                 >
                   Confirmer la réservation
-                </button>
+                </a>
                 <Link
                   to="/restaurants"
                   className="text-[11px] uppercase tracking-[0.25em] font-semibold border-b border-foreground pb-2 hover:text-primary transition-colors self-center"

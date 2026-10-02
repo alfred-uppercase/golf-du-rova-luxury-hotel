@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { useT, LangSwitcher } from "@/lib/i18n";
+import { BOOKING_URL } from "@/lib/booking";
 const logo = "/images/logo-golf-rova.png";
 
 type ActiveKey = "hotel" | "rooms" | "restaurants" | "golf" | null;
@@ -44,9 +45,9 @@ export function SiteHeader({ active = null }: { active?: ActiveKey }) {
         </div>
         <div className="flex items-center gap-3 md:gap-5">
           <LangSwitcher />
-          <button className="hidden sm:inline-flex bg-primary text-primary-foreground px-4 md:px-5 py-2.5 text-[10px] md:text-[11px] uppercase tracking-[0.2em] font-medium hover:bg-primary/90 transition-all">
+          <a href={BOOKING_URL} target="_blank" rel="noreferrer" className="hidden sm:inline-flex bg-primary text-primary-foreground px-4 md:px-5 py-2.5 text-[10px] md:text-[11px] uppercase tracking-[0.2em] font-medium hover:bg-primary/90 transition-all">
             {t("nav.book")}
-          </button>
+          </a>
           <button
             type="button"
             aria-label="Menu"
@@ -93,9 +94,9 @@ export function SiteHeader({ active = null }: { active?: ActiveKey }) {
             <Link to="/golf" onClick={() => setOpen(false)} className={linkCls("golf")}>{t("nav.golf")}</Link>
           </nav>
           <div className="mt-auto px-6 pb-10 pt-6 border-t border-border">
-            <button className="w-full bg-primary text-primary-foreground px-5 py-3.5 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-primary/90 transition-all">
+            <a href={BOOKING_URL} target="_blank" rel="noreferrer" className="flex w-full justify-center bg-primary text-primary-foreground px-5 py-3.5 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-primary/90 transition-all">
               {t("nav.book")}
-            </button>
+            </a>
             <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground mt-6">
               Andakana — Antananarivo
             </p>

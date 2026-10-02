@@ -1,12 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import roomDeluxe from "@/assets/room-deluxe.jpg";
-import roomSignature from "@/assets/room-signature.jpg";
-import roomVilla from "@/assets/room-villa.jpg";
+import roomSuite from "@/assets/room-suite.jpg";
+import roomDetail from "@/assets/room-detail.jpg";
+import golfView from "@/assets/chambre-vue-golf.png.asset.json";
+import ruralView from "@/assets/chambre-vue-massif.png.asset.json";
+import forestView from "@/assets/chambre-vue-foret.png.asset.json";
 import { useT } from "@/lib/i18n";
+import { BOOKING_URL } from "@/lib/booking";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { VideoModal } from "@/components/video-modal";
 import {
+  Play,
   X,
   Wind,
   Wifi,
@@ -19,6 +24,8 @@ import {
   Tv,
   TreePalm,
 } from "lucide-react";
+
+const ROOMS_VIDEO = "https://golf-madagascar.mg/wp-content/uploads/2024/11/Chambre.mp4";
 
 const AMENITIES = [
   { icon: TreePalm, key: "rooms.amenity.terrace" },
@@ -55,40 +62,21 @@ export const Route = createFileRoute("/chambres")({
   component: ChambresPage,
 });
 
-type Room = {
-  id: string;
-  index: string;
-  nameKey: string;
-  catKey: string;
-  altKey: string;
-  descKey: string;
-  img: string;
-};
-
-const rooms: Room[] = [
-  {
-    id: "golf", index: "01", nameKey: "rm.golf.name", catKey: "rm.golf.cat",
-    altKey: "rm.golf.alt", descKey: "rm.golf.desc", img: roomSignature,
-  },
-  {
-    id: "rural", index: "02", nameKey: "rm.rural.name", catKey: "rm.rural.cat",
-    altKey: "rm.rural.alt", descKey: "rm.rural.desc", img: roomDeluxe,
-  },
-  {
-    id: "forest", index: "03", nameKey: "rm.forest.name", catKey: "rm.forest.cat",
-    altKey: "rm.forest.alt", descKey: "rm.forest.desc", img: roomVilla,
-  },
+const views = [
+  { image: golfView.url, nameKey: "rm.golf.name", altKey: "rm.golf.alt" },
+  { image: ruralView.url, nameKey: "rm.rural.name", altKey: "rm.rural.alt" },
+  { image: forestView.url, nameKey: "rm.forest.name", altKey: "rm.forest.alt" },
 ];
 
 function ChambresPage() {
   const { t } = useT();
-  const [openInfo, setOpenInfo] = useState<string | null>(null);
-  const active = rooms.find((x) => x.id === openInfo);
+  const [openInfo, setOpenInfo] = useState(false);
+  const [videoOpen, setVideoOpen] = useState(false);
 
   useEffect(() => {
     if (!openInfo) return;
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpenInfo(null);
+      if (event.key === "Escape") setOpenInfo(false);
     };
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", closeOnEscape);
@@ -103,79 +91,69 @@ function ChambresPage() {
       {/* Navigation */}
       <SiteHeader active="rooms" />
 
-      {/* Hero */}
-      <section className="relative pt-40 pb-20 md:pt-52 md:pb-28 px-6 md:px-12 border-b border-border">
-        <div className="max-w-6xl mx-auto" style={{ animation: "var(--animate-fade-up)" }}>
-          <span className="font-mono text-[10px] uppercase tracking-[0.35em] text-accent block mb-6">
-            {t("rooms.kicker")}
-          </span>
-          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight text-balance mb-10">
-            {t("rooms.title.1")} <br />
-            <span className="italic text-primary">{t("rooms.title.2")}</span>
+      <section className="group/hero relative h-[88vh] min-h-[620px] flex items-end overflow-hidden px-6 md:px-12 pb-20 md:pb-24">
+        <video src={ROOMS_VIDEO} autoPlay muted loop playsInline preload="auto" className="absolute inset-0 size-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/20 to-black/75" />
+        <button type="button" onClick={() => setVideoOpen(true)} className="absolute top-24 right-5 md:top-28 md:right-10 z-20 flex items-center gap-3 bg-white/10 backdrop-blur border border-white/30 text-white px-5 py-3 text-[10px] uppercase tracking-[0.25em] opacity-100 md:opacity-0 md:group-hover/hero:opacity-100 hover:bg-accent hover:border-accent hover:text-accent-foreground transition-all duration-500">
+          <Play className="size-4 fill-current" /> {t("hero.watch.video")}
+        </button>
+        <div className="relative z-10 max-w-6xl mx-auto w-full text-white" style={{ animation: "var(--animate-fade-up)" }}>
+          <span className="font-mono text-[10px] uppercase tracking-[0.35em] text-accent block mb-6">{t("rooms.hero.kicker")}</span>
+          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.95] text-balance">
+            {t("rooms.title.1")} <br /><span className="italic text-accent">{t("rooms.title.2")}</span>
           </h1>
-          <div className="grid md:grid-cols-2 gap-10 max-w-5xl">
-            <p className="text-muted-foreground text-pretty leading-relaxed text-lg">
-              {t("rooms.intro.1")}
-            </p>
-            <p className="text-muted-foreground text-pretty leading-relaxed">
-              {t("rooms.intro.2")}
-            </p>
+        </div>
+      </section>
+
+      <section className="py-24 md:py-32 px-6 md:px-12">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div className="lg:col-span-7">
+            <img src={roomSuite} alt={t("rooms.section1.alt")} width={1280} height={960} loading="lazy" className="w-full aspect-[4/3] object-cover" />
+          </div>
+          <div className="lg:col-span-5">
+            <span className="font-mono text-[10px] text-accent tracking-[0.3em] block mb-6">[ 01 ]</span>
+            <h2 className="font-display text-4xl md:text-5xl leading-tight mb-8 text-balance">{t("rooms.section1.title")}</h2>
+            <p className="text-muted-foreground leading-relaxed mb-5">{t("rooms.section1.p1")}</p>
+            <p className="text-muted-foreground leading-relaxed mb-9">{t("rooms.section1.p2")}</p>
+            <RoomActions t={t} onDetails={() => setOpenInfo(true)} />
           </div>
         </div>
       </section>
 
-      {/* Rooms */}
-      <section className="py-24 md:py-32 px-6 md:px-12 space-y-28 md:space-y-40">
-        {rooms.map((r, i) => (
-          <article
-            key={r.id}
-            id={r.id}
-            className={`max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16 items-center ${
-              i % 2 === 1 ? "lg:[&>div:first-child]:order-2" : ""
-            }`}
-          >
-            <div className="lg:col-span-7">
-              <img
-                src={r.img}
-                alt={t(r.altKey)}
-                width={1280}
-                height={1600}
-                loading="lazy"
-                className="w-full aspect-[4/5] object-cover shadow-sm"
-              />
-            </div>
-            <div className="lg:col-span-5">
-              <div className="flex items-center gap-4 mb-6">
-                <span className="font-mono text-[10px] text-accent tracking-[0.3em]">
-                  [ {r.index} ]
-                </span>
-                <span className="h-px flex-1 bg-border" />
-              </div>
-              <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-muted-foreground block mb-4">
-                {t(r.catKey)}
-              </span>
-              <h2 className="font-display text-4xl md:text-5xl leading-tight mb-8 text-balance">
-                {t(r.nameKey)}
-              </h2>
-              <p className="text-muted-foreground leading-relaxed text-pretty max-w-[52ch] mb-8">
-                {t(r.descKey)}
-              </p>
+      <section className="bg-stone-soft py-24 md:py-32 px-6 md:px-12">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div className="lg:col-span-5">
+            <span className="font-mono text-[10px] text-accent tracking-[0.3em] block mb-6">[ 02 ]</span>
+            <h2 className="font-display text-4xl md:text-5xl leading-tight mb-8 text-balance">{t("rooms.section2.title")}</h2>
+            <p className="text-muted-foreground leading-relaxed mb-5">{t("rooms.section2.p1")}</p>
+            <p className="text-muted-foreground leading-relaxed mb-9">{t("rooms.section2.p2")}</p>
+            <RoomActions t={t} onDetails={() => setOpenInfo(true)} />
+          </div>
+          <div className="lg:col-span-7 lg:order-last order-first">
+            <img src={roomDetail} alt={t("rooms.section2.alt")} width={1280} height={960} loading="lazy" className="w-full aspect-[4/3] object-cover" />
+          </div>
+        </div>
+      </section>
 
-              <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
-                <button
-                  onClick={() => setOpenInfo(r.id)}
-                  className="text-[11px] uppercase tracking-[0.25em] font-semibold border-b border-primary pb-2 hover:text-primary transition-colors inline-flex items-center gap-2"
-                >
-                  {t("rooms.details.cta")}
-                  <span aria-hidden>→</span>
-                </button>
-                <button className="bg-primary text-primary-foreground px-7 py-3.5 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-accent hover:text-accent-foreground transition-all">
-                  {t("rooms.book")}
-                </button>
-              </div>
-            </div>
-          </article>
-        ))}
+      <section className="py-24 md:py-32 px-6 md:px-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-14">
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent block mb-5">{t("rooms.views.kicker")}</span>
+            <h2 className="font-display text-4xl md:text-5xl">{t("rooms.views.title")}</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {views.map((view, index) => (
+              <figure key={view.nameKey} className="group relative aspect-[4/5] overflow-hidden bg-stone-soft">
+                <img src={view.image} alt={t(view.altKey)} loading="lazy" className="size-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent" />
+                <figcaption className="absolute inset-x-0 bottom-0 p-7 text-primary-foreground">
+                  <span className="font-mono text-[9px] tracking-[0.25em] text-accent block mb-2">[ 0{index + 1} ]</span>
+                  <h3 className="font-display text-2xl">{t(view.nameKey)}</h3>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* CTA */}
@@ -191,9 +169,9 @@ function ChambresPage() {
             {t("rooms.cta.p")}
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <button className="bg-primary text-primary-foreground px-10 py-4 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-accent hover:text-accent-foreground transition-all">
+            <a href={BOOKING_URL} target="_blank" rel="noreferrer" className="bg-primary text-primary-foreground px-10 py-4 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-accent hover:text-accent-foreground transition-all">
               {t("home.check.availability")}
-            </button>
+            </a>
             <a
               href="tel:+261342022011"
               className="border border-foreground/20 px-10 py-4 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-foreground hover:text-background transition-all"
@@ -205,22 +183,23 @@ function ChambresPage() {
       </section>
 
       <SiteFooter />
+      <VideoModal src={ROOMS_VIDEO} open={videoOpen} onClose={() => setVideoOpen(false)} />
 
       {/* Info modal — Aménagements */}
-      {openInfo && active && (
+      {openInfo && (
         <div
           role="dialog"
           aria-modal="true"
           aria-labelledby="room-amenities-title"
           className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 md:p-6 overflow-y-auto"
-          onClick={() => setOpenInfo(null)}
+          onClick={() => setOpenInfo(false)}
         >
           <div
             className="relative bg-background max-w-3xl w-full p-8 md:p-14 shadow-2xl my-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <button
-              onClick={() => setOpenInfo(null)}
+              onClick={() => setOpenInfo(false)}
               className="absolute top-5 right-5 text-foreground/60 hover:text-primary transition-colors"
               aria-label={t("common.close")}
             >
@@ -228,7 +207,7 @@ function ChambresPage() {
             </button>
 
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent block mb-3">
-              {t(active.catKey)} · {t(active.nameKey)}
+              {t("rooms.hero.kicker")}
             </span>
             <h3 id="room-amenities-title" className="font-display text-3xl md:text-5xl text-primary mb-10 text-center md:text-left">
               {t("rooms.modal.title.1")} <span className="italic">{t("rooms.modal.title.2")}</span>
@@ -252,11 +231,11 @@ function ChambresPage() {
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <button className="bg-primary text-primary-foreground px-7 py-3.5 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-accent hover:text-accent-foreground transition-all">
+              <a href={BOOKING_URL} target="_blank" rel="noreferrer" className="bg-primary text-primary-foreground px-7 py-3.5 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-accent hover:text-accent-foreground transition-all">
                 {t("rooms.book")}
-              </button>
+              </a>
               <button
-                onClick={() => setOpenInfo(null)}
+                onClick={() => setOpenInfo(false)}
                 className="text-[11px] uppercase tracking-[0.25em] font-semibold border-b border-foreground pb-2 hover:text-primary transition-colors"
               >
                 {t("common.close")}
@@ -265,6 +244,19 @@ function ChambresPage() {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+function RoomActions({ t, onDetails }: { t: (key: string) => string; onDetails: () => void }) {
+  return (
+    <div className="flex flex-wrap items-center gap-x-7 gap-y-4">
+      <button type="button" onClick={onDetails} className="text-[11px] uppercase tracking-[0.25em] font-semibold border-b border-primary pb-2 hover:text-primary transition-colors inline-flex items-center gap-2">
+        {t("rooms.details.cta")} <span aria-hidden>→</span>
+      </button>
+      <a href={BOOKING_URL} target="_blank" rel="noreferrer" className="bg-primary text-primary-foreground px-7 py-3.5 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-accent hover:text-accent-foreground transition-all">
+        {t("home.check.availability")}
+      </a>
     </div>
   );
 }
