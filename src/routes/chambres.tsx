@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Play } from "lucide-react";
 import roomSuite from "@/assets/room-suite.jpg";
 import roomDetail from "@/assets/room-detail.jpg";
 import golfView from "@/assets/chambre-vue-golf.png.asset.json";
@@ -12,6 +11,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { VideoModal } from "@/components/video-modal";
 import {
+  Play,
   X,
   Wind,
   Wifi,
@@ -76,7 +76,7 @@ function ChambresPage() {
   useEffect(() => {
     if (!openInfo) return;
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpenInfo(null);
+      if (event.key === "Escape") setOpenInfo(false);
     };
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", closeOnEscape);
@@ -192,14 +192,14 @@ function ChambresPage() {
           aria-modal="true"
           aria-labelledby="room-amenities-title"
           className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 md:p-6 overflow-y-auto"
-          onClick={() => setOpenInfo(null)}
+          onClick={() => setOpenInfo(false)}
         >
           <div
             className="relative bg-background max-w-3xl w-full p-8 md:p-14 shadow-2xl my-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <button
-              onClick={() => setOpenInfo(null)}
+              onClick={() => setOpenInfo(false)}
               className="absolute top-5 right-5 text-foreground/60 hover:text-primary transition-colors"
               aria-label={t("common.close")}
             >
@@ -235,7 +235,7 @@ function ChambresPage() {
                 {t("rooms.book")}
               </a>
               <button
-                onClick={() => setOpenInfo(null)}
+                onClick={() => setOpenInfo(false)}
                 className="text-[11px] uppercase tracking-[0.25em] font-semibold border-b border-foreground pb-2 hover:text-primary transition-colors"
               >
                 {t("common.close")}

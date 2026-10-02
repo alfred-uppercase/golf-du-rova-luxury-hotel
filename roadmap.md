@@ -9,3 +9,6 @@
 - [x] Vérifier les pages en français et en anglais sur ordinateur et mobile
 
 - [ ] Ouvrir le moteur de réservation dans un autre onglet
+- [x] Recomposer la page Chambres avec sa vidéo et ses deux sections
+- [x] Ajouter les trois vues depuis le balcon avec les photos fournies
+- [x] Relier les boutons de réservation au moteur externe
