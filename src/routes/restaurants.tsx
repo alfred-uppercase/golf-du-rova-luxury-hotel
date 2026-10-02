@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import restoRova from "@/assets/resto-rova.jpg";
 import restoAsian from "@/assets/resto-asian.jpg";
@@ -7,6 +7,7 @@ import chefZervas from "@/assets/chef-zervas.jpg";
 import { useT } from "@/lib/i18n";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { BOOKING_URL } from "@/lib/booking";
 
 const RESTAURANT_VIDEO = "https://golf-madagascar.mg/wp-content/uploads/2024/11/Restaurant_1.mp4";
 
@@ -155,13 +156,14 @@ function RestaurantsPage() {
                   {t("resto.menu.cta")}
                   <span aria-hidden>→</span>
                 </button>
-                <Link
-                  to="/reservation"
-                  search={{ restaurant: r.id as "rova" | "asian" | "view", tables: 1 }}
+                <a
+                  href={BOOKING_URL}
+                  target="_blank"
+                  rel="noreferrer"
                   className="bg-primary text-primary-foreground px-7 py-3.5 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-accent hover:text-accent-foreground transition-all"
                 >
                   {t("resto.book.table")}
-                </Link>
+                </a>
               </div>
             </div>
           </article>
@@ -223,12 +225,14 @@ function RestaurantsPage() {
           <p className="text-muted-foreground mb-10 leading-relaxed">
             {t("resto.cta.p")}
           </p>
-          <Link
-            to="/reservation"
+          <a
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noreferrer"
             className="inline-block bg-primary text-primary-foreground px-10 py-4 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-accent hover:text-accent-foreground transition-all"
           >
             {t("resto.book.table")}
-          </Link>
+          </a>
         </div>
       </section>
 
@@ -254,13 +258,14 @@ function RestaurantsPage() {
               {t("resto.modal.p")}
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link
-                to="/reservation"
-                search={{ restaurant: active.id as "rova" | "asian" | "view", tables: 1 }}
+              <a
+                href={BOOKING_URL}
+                target="_blank"
+                rel="noreferrer"
                 className="bg-primary text-primary-foreground px-6 py-3 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-accent hover:text-accent-foreground transition-all"
               >
                 {t("resto.book.table")}
-              </Link>
+              </a>
               <button
                 onClick={() => setOpenMenu(null)}
                 className="text-[11px] uppercase tracking-[0.25em] font-semibold border-b border-foreground pb-2 hover:text-primary transition-colors"

@@ -5,6 +5,7 @@ import { useT } from "@/lib/i18n";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { VideoModal } from "@/components/video-modal";
+import { BOOKING_URL } from "@/lib/booking";
 import g1 from "@/assets/golf-g1.jpg";
 import g2 from "@/assets/golf-g2.jpg";
 import g3 from "@/assets/golf-g3.jpg";
@@ -128,9 +129,9 @@ function GolfPage() {
             <p className="leading-relaxed text-pretty">{t("golf.intro.2")}</p>
           </div>
           <div className="mt-10">
-            <button className="bg-accent text-accent-foreground px-8 py-4 text-[11px] uppercase tracking-[0.25em] font-semibold hover:bg-primary hover:text-primary-foreground transition-all">
+            <a href={BOOKING_URL} target="_blank" rel="noreferrer" className="inline-block bg-accent text-accent-foreground px-8 py-4 text-[11px] uppercase tracking-[0.25em] font-semibold hover:bg-primary hover:text-primary-foreground transition-all">
               {t("golf.cta.book")}
-            </button>
+            </a>
           </div>
         </div>
       </section>
@@ -281,9 +282,9 @@ function GolfPage() {
             {t("golf.cta.title.1")} <span className="italic">{t("golf.cta.title.2")}</span>
           </h2>
           <p className="text-muted-foreground mb-10 leading-relaxed">{t("golf.cta.p")}</p>
-          <button className="bg-primary text-primary-foreground px-10 py-4 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-accent hover:text-accent-foreground transition-all">
+          <a href={BOOKING_URL} target="_blank" rel="noreferrer" className="inline-block bg-primary text-primary-foreground px-10 py-4 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-accent hover:text-accent-foreground transition-all">
             {t("golf.cta.book")}
-          </button>
+          </a>
         </div>
       </section>
 
