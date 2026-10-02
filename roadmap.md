@@ -7,3 +7,5 @@
 - [x] Ajouter la vidéo de fond aux restaurants
 - [x] Finaliser la galerie golf bilingue
 - [x] Vérifier les pages en français et en anglais sur ordinateur et mobile
+
+- [ ] Ouvrir le moteur de réservation dans un autre onglet

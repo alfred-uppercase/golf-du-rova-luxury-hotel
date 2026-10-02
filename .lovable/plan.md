@@ -3,7 +3,7 @@
 ## Réservation
 - Centraliser l’adresse du moteur de réservation fournie afin d’éviter les liens divergents.
 - Rediriger vers ce moteur tous les boutons « Réserver », « Vérifier la disponibilité », « Réserver maintenant » et « Réserver une table », dans l’en-tête, l’accueil, les chambres, le golf et les restaurants.
-- Ouvrir le moteur dans le même onglet pour conserver un parcours de réservation direct.
+- Ouvrir le moteur dans un autre onglet pour conserver le site accessible pendant la réservation.
 
 ## Page Chambres
 - Remplacer l’introduction actuelle par une scène vidéo immersive utilisant `Chambre.mp4`, dans la continuité visuelle des pages Accueil, Golf et Restaurants.
