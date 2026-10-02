@@ -200,6 +200,8 @@ const D: Dict = {
   "rooms.section2.p2": { fr: "Afin d’assurer un confort sur mesure, vous aurez également la possibilité de choisir une chambre avec ou sans douche extérieure, selon vos préférences personnelles.", en: "For truly tailored comfort, you may also choose a room with or without an outdoor shower, according to your personal preference." },
   "rooms.views.kicker": { fr: "Trois perspectives · Une même sérénité", en: "Three perspectives · The same serenity" },
   "rooms.views.title": { fr: "Diverses vues depuis le balcon", en: "A choice of views from your balcony" },
+  "rooms.section1.alt": { fr: "Chambre élégante du Golf du Rova ouverte sur la nature", en: "Elegant Golf du Rova room opening onto nature" },
+  "rooms.section2.alt": { fr: "Détails raffinés d’une chambre du Golf du Rova", en: "Refined details in a Golf du Rova room" },
   "rooms.spec.surface": { fr: "Surface", en: "Surface" },
   "rooms.spec.capacity": { fr: "Capacité", en: "Capacity" },
   "rooms.spec.view": { fr: "Vue", en: "View" },
