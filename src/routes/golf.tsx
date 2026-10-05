@@ -6,19 +6,19 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { VideoModal } from "@/components/video-modal";
 import { BOOKING_URL } from "@/lib/booking";
-import g1 from "@/assets/golf-g1.jpg";
-import g2 from "@/assets/golf-g2.jpg";
-import g3 from "@/assets/golf-g3.jpg";
-import g4 from "@/assets/golf-g4.jpg";
-import g5 from "@/assets/golf-g5.jpg";
-import g6 from "@/assets/golf-g6.jpg";
-import g7 from "@/assets/golf-g7.jpg";
-import g8 from "@/assets/golf-g8.jpg";
-import g9 from "@/assets/golf-g9.jpg";
-import g10 from "@/assets/golf-g10.jpg";
 import proshopAsset from "@/assets/golf-proshop.png.asset.json";
 import practiceAsset from "@/assets/golf-practice.png.asset.json";
 import clubhouseAsset from "@/assets/golf-clubhouse.png.asset.json";
+import gr1 from "@/assets/golf-real-1.png.asset.json";
+import gr2 from "@/assets/golf-real-2.png.asset.json";
+import gr3 from "@/assets/golf-real-3.png.asset.json";
+import gr4 from "@/assets/golf-real-4.png.asset.json";
+import gr5 from "@/assets/golf-real-5.png.asset.json";
+import gr6 from "@/assets/golf-real-6.png.asset.json";
+import gr7 from "@/assets/golf-real-7.png.asset.json";
+import gr8 from "@/assets/golf-real-8.png.asset.json";
+import gr9 from "@/assets/golf-real-9.png.asset.json";
+import gr10 from "@/assets/golf-real-10.png.asset.json";
 const proshopImg = proshopAsset.url;
 const practiceImg = practiceAsset.url;
 const clubhouseImg = clubhouseAsset.url;
@@ -48,16 +48,16 @@ export const Route = createFileRoute("/golf")({
 const HERO_VIDEO = "https://golf-madagascar.mg/wp-content/uploads/2024/11/Golf.mp4";
 
 const gallery = [
-  { src: g1, fr: "Vue aérienne du parcours", en: "Aerial view of the course" },
-  { src: g2, fr: "Détail club et gant", en: "Club and glove detail" },
-  { src: g3, fr: "Pro Shop — couvre-clubs", en: "Pro Shop — club covers" },
-  { src: g4, fr: "Practice Le Swing au coucher du soleil", en: "Le Swing practice range at sunset" },
-  { src: g5, fr: "Drapeau rouge sur le green", en: "Red flag on the green" },
-  { src: g6, fr: "Le Clubhouse", en: "The Clubhouse" },
-  { src: g7, fr: "Sortie de bunker", en: "Bunker shot" },
-  { src: g8, fr: "Vue aérienne du tracé", en: "Aerial view of the layout" },
-  { src: g9, fr: "Joueurs sur le fairway", en: "Players on the fairway" },
-  { src: g10, fr: "Putting green au soleil couchant", en: "Putting green at sunset" },
+  { src: gr1.url, fr: "Drapeau au coucher du soleil", en: "Flag at sunset" },
+  { src: gr2.url, fr: "Entraînement au putting", en: "Putting practice" },
+  { src: gr3.url, fr: "Swing sur le fairway", en: "Swing on the fairway" },
+  { src: gr4.url, fr: "Coup de départ sur les collines", en: "Tee shot over the hills" },
+  { src: gr5.url, fr: "Sortie de bunker", en: "Bunker shot" },
+  { src: gr6.url, fr: "Voiturettes sous les arbres", en: "Carts under the trees" },
+  { src: gr7.url, fr: "Compétition au Golf du Rova", en: "Competition at Golf du Rova" },
+  { src: gr8.url, fr: "Green n° 9", en: "Green no. 9" },
+  { src: gr9.url, fr: "Lecture du green", en: "Reading the green" },
+  { src: gr10.url, fr: "Au départ avec son caddie", en: "At the tee with the caddie" },
 ];
 
 function GolfPage() {
