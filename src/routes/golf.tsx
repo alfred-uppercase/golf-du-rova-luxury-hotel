@@ -16,6 +16,12 @@ import g7 from "@/assets/golf-g7.jpg";
 import g8 from "@/assets/golf-g8.jpg";
 import g9 from "@/assets/golf-g9.jpg";
 import g10 from "@/assets/golf-g10.jpg";
+import proshopAsset from "@/assets/golf-proshop.png.asset.json";
+import practiceAsset from "@/assets/golf-practice.png.asset.json";
+import clubhouseAsset from "@/assets/golf-clubhouse.png.asset.json";
+const proshopImg = proshopAsset.url;
+const practiceImg = practiceAsset.url;
+const clubhouseImg = clubhouseAsset.url;
 
 export const Route = createFileRoute("/golf")({
   head: () => ({
@@ -156,7 +162,7 @@ function GolfPage() {
           </div>
           <div className="lg:col-span-7 lg:order-2">
             <img
-              src={g3}
+              src={proshopImg}
               alt="Pro Shop"
               width={1280}
               height={1600}
@@ -172,7 +178,7 @@ function GolfPage() {
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           <div className="lg:col-span-7 order-2 lg:order-1">
             <img
-              src={g4}
+              src={practiceImg}
               alt="Le Swing"
               width={1600}
               height={1024}
@@ -225,7 +231,7 @@ function GolfPage() {
           </div>
           <div className="lg:col-span-7">
             <img
-              src={g6}
+              src={clubhouseImg}
               alt="Le Clubhouse"
               width={1600}
               height={1024}
