@@ -1,8 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import restoRova from "@/assets/resto-rova.jpg";
-import restoAsian from "@/assets/resto-asian.jpg";
-import restoView from "@/assets/resto-view.jpg";
+import restoRovaAsset from "@/assets/resto-rova.png.asset.json";
+import restoAsianAsset from "@/assets/resto-asian.png.asset.json";
+import restoViewAsset from "@/assets/resto-view.png.asset.json";
+const restoRova = restoRovaAsset.url;
+const restoAsian = restoAsianAsset.url;
+const restoView = restoViewAsset.url;
 import chefZervas from "@/assets/chef-zervas.jpg";
 import { useT } from "@/lib/i18n";
 import { SiteHeader } from "@/components/site-header";
