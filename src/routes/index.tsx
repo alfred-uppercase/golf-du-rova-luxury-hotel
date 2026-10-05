@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { ExternalLink, Play } from "lucide-react";
-import heritageWood from "@/assets/heritage-wood.jpg";
-import heritageAerial from "@/assets/heritage-aerial.jpg";
+import clubhousePhotoAsset from "@/assets/real-clubhouse.png.asset.json";
+import flagPhotoAsset from "@/assets/real-flag.png.asset.json";
 import expSuite from "@/assets/exp-suite.jpg";
 import expGolf from "@/assets/exp-golf.jpg";
 import expSpa from "@/assets/exp-spa.jpg";
@@ -137,8 +137,8 @@ function Index() {
             <div className="grid grid-cols-2 gap-4 md:gap-6">
               <div className="pt-12">
                 <img
-                  src={heritageWood}
-                  alt="Détail du club-house en bois noble"
+                  src={clubhousePhotoAsset.url}
+                  alt="Le Clubhouse du Golf du Rova face au green"
                   width={800}
                   height={1056}
                   loading="lazy"
@@ -147,8 +147,8 @@ function Index() {
               </div>
               <div>
                 <img
-                  src={heritageAerial}
-                  alt="Vue aérienne des hauts plateaux malgaches"
+                  src={flagPhotoAsset.url}
+                  alt="Drapeau du Golf du Rova au coucher du soleil"
                   width={800}
                   height={1056}
                   loading="lazy"
