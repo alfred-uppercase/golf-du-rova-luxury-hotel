@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import roomSuite from "@/assets/room-suite.jpg";
-import roomDetail from "@/assets/room-detail.jpg";
+import chambreCharmeAsset from "@/assets/chambre-charme.png.asset.json";
+import chambreConfortAsset from "@/assets/chambre-confort.png.asset.json";
+const roomSuite = chambreCharmeAsset.url;
+const roomDetail = chambreConfortAsset.url;
 import golfView from "@/assets/chambre-vue-golf.png.asset.json";
 import ruralView from "@/assets/chambre-vue-massif.png.asset.json";
 import forestView from "@/assets/chambre-vue-foret.png.asset.json";
