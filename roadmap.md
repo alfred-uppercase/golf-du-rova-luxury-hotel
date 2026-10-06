@@ -1,8 +1,8 @@
 # Roadmap
 
-- [ ] Actualiser les trois photos et les liens de L’Art de Recevoir
-- [ ] Relier Découvrir notre héritage à la nouvelle page Événements
-- [ ] Créer et vérifier la page Événements bilingue avec les contenus officiels
+- [x] Actualiser les trois photos et les liens de L’Art de Recevoir
+- [x] Relier Découvrir notre héritage à la nouvelle page Événements
+- [x] Créer et vérifier la page Événements bilingue avec les contenus officiels
 
 - [x] Mettre à jour les titres de l’accueil
 - [x] Ajouter les avis voyageurs et le lien Google
