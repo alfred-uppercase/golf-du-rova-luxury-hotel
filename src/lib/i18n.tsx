@@ -380,6 +380,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   return <LangContext.Provider value={{ lang, setLang, t }}>{children}</LangContext.Provider>;
 }
 
+export function getFrenchCopy(key: string) {
+  return D[key]?.fr ?? key;
+}
+
 export function useT() {
   return useContext(LangContext);
 }
