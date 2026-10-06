@@ -40,7 +40,7 @@ export function SiteFooter() {
           <div className="space-y-4">
             <h5 className="text-accent font-bold mb-6">{t("footer.col.services")}</h5>
             <a href="#" className="block opacity-60 hover:opacity-100 transition-opacity">{t("footer.helicopter")}</a>
-            <a href="#" className="block opacity-60 hover:opacity-100 transition-opacity">{t("footer.events")}</a>
+            <Link to="/evenements" className="block opacity-60 hover:opacity-100 transition-opacity">{t("footer.events")}</Link>
             <a href="#" className="block opacity-60 hover:opacity-100 transition-opacity">{t("footer.concierge")}</a>
           </div>
           <div className="space-y-4">

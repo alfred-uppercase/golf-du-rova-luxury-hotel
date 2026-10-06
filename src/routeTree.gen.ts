@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ChambresRouteImport } from './routes/chambres'
+import { Route as EvenementsRouteImport } from './routes/evenements'
 import { Route as GolfRouteImport } from './routes/golf'
 import { Route as ReservationRouteImport } from './routes/reservation'
 import { Route as RestaurantsRouteImport } from './routes/restaurants'
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
 const ChambresRoute = ChambresRouteImport.update({
   id: '/chambres',
   path: '/chambres',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EvenementsRoute = EvenementsRouteImport.update({
+  id: '/evenements',
+  path: '/evenements',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GolfRoute = GolfRouteImport.update({
@@ -44,6 +50,7 @@ const RestaurantsRoute = RestaurantsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/chambres': typeof ChambresRoute
+  '/evenements': typeof EvenementsRoute
   '/golf': typeof GolfRoute
   '/reservation': typeof ReservationRoute
   '/restaurants': typeof RestaurantsRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/chambres': typeof ChambresRoute
+  '/evenements': typeof EvenementsRoute
   '/golf': typeof GolfRoute
   '/reservation': typeof ReservationRoute
   '/restaurants': typeof RestaurantsRoute
@@ -59,21 +67,42 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/chambres': typeof ChambresRoute
+  '/evenements': typeof EvenementsRoute
   '/golf': typeof GolfRoute
   '/reservation': typeof ReservationRoute
   '/restaurants': typeof RestaurantsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/chambres' | '/golf' | '/reservation' | '/restaurants'
+  fullPaths:
+    | '/'
+    | '/chambres'
+    | '/evenements'
+    | '/golf'
+    | '/reservation'
+    | '/restaurants'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/chambres' | '/golf' | '/reservation' | '/restaurants'
-  id: '__root__' | '/' | '/chambres' | '/golf' | '/reservation' | '/restaurants'
+  to:
+    | '/'
+    | '/chambres'
+    | '/evenements'
+    | '/golf'
+    | '/reservation'
+    | '/restaurants'
+  id:
+    | '__root__'
+    | '/'
+    | '/chambres'
+    | '/evenements'
+    | '/golf'
+    | '/reservation'
+    | '/restaurants'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ChambresRoute: typeof ChambresRoute
+  EvenementsRoute: typeof EvenementsRoute
   GolfRoute: typeof GolfRoute
   ReservationRoute: typeof ReservationRoute
   RestaurantsRoute: typeof RestaurantsRoute
@@ -93,6 +122,13 @@ declare module '@tanstack/react-router' {
       path: '/chambres'
       fullPath: '/chambres'
       preLoaderRoute: typeof ChambresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/evenements': {
+      id: '/evenements'
+      path: '/evenements'
+      fullPath: '/evenements'
+      preLoaderRoute: typeof EvenementsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/golf': {
@@ -122,6 +158,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ChambresRoute: ChambresRoute,
+  EvenementsRoute: EvenementsRoute,
   GolfRoute: GolfRoute,
   ReservationRoute: ReservationRoute,
   RestaurantsRoute: RestaurantsRoute,
