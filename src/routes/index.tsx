@@ -1,11 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { ExternalLink, Play } from "lucide-react";
 import clubhousePhotoAsset from "@/assets/real-clubhouse.png.asset.json";
 import flagPhotoAsset from "@/assets/real-flag.png.asset.json";
-import expSuite from "@/assets/exp-suite.jpg";
-import expGolf from "@/assets/exp-golf.jpg";
-import expSpa from "@/assets/exp-spa.jpg";
+import expSuite from "@/assets/home-suite-premium.png.asset.json";
+import expGolf from "@/assets/home-golf-historique.png.asset.json";
+import expSpa from "@/assets/home-sanctuaire.png.asset.json";
 import { useT } from "@/lib/i18n";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -125,13 +125,13 @@ function Index() {
             <p className="text-muted-foreground text-pretty leading-relaxed mb-10 max-w-[48ch]">
               {t("home.story.p2")}
             </p>
-            <a
-              href="#"
+            <Link
+              to="/evenements"
               className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] font-semibold border-b border-primary pb-2 hover:text-primary transition-colors"
             >
               {t("home.story.cta")}
               <span aria-hidden>→</span>
-            </a>
+            </Link>
           </div>
           <div className="lg:col-span-7">
             <div className="grid grid-cols-2 gap-4 md:gap-6">
@@ -172,13 +172,14 @@ function Index() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
             {[
-              { img: expSuite, label: t("home.exp.suite.label"), title: t("home.exp.suite.title"), alt: "Suite luxueuse avec vue sur le green" },
-              { img: expGolf, label: t("home.exp.golf.label"), title: t("home.exp.golf.title"), alt: "Trou de golf au coucher du soleil" },
-              { img: expSpa, label: t("home.exp.spa.label"), title: t("home.exp.spa.title"), alt: "Spa minimaliste avec bassin" },
+              { img: expSuite.url, label: t("home.exp.suite.label"), title: t("home.exp.suite.title"), alt: t("home.exp.suite.alt"), to: "/chambres" as const },
+              { img: expGolf.url, label: t("home.exp.golf.label"), title: t("home.exp.golf.title"), alt: t("home.exp.golf.alt"), to: "/golf" as const },
+              { img: expSpa.url, label: t("home.exp.spa.label"), title: t("home.exp.spa.title"), alt: t("home.exp.spa.alt"), to: "/evenements" as const },
             ].map((card) => (
-              <article
+              <Link
+                to={card.to}
                 key={card.title}
-                className="group relative overflow-hidden aspect-[4/5] cursor-pointer"
+                className="group relative block overflow-hidden aspect-[4/5] cursor-pointer focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-4"
               >
                 <img
                   src={card.img}
@@ -195,7 +196,7 @@ function Index() {
                   </p>
                   <h3 className="font-display text-2xl md:text-3xl">{card.title}</h3>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         </div>
