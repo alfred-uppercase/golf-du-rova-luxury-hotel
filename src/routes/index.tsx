@@ -74,8 +74,7 @@ function Index() {
             {t("home.kicker")}
           </span>
           <h1 className="font-display text-white text-4xl md:text-6xl lg:text-7xl text-balance leading-[1] tracking-tight mb-8 max-w-5xl">
-            {t("home.title.1")} <br />
-            <span className="italic text-accent">{t("home.title.2")}</span>
+            {t("home.title.1")}
           </h1>
         </div>
 

@@ -17,8 +17,7 @@ const D: Dict = {
 
   // Home — Hero
   "home.kicker": { fr: "Hôtel 5 étoiles · Antananarivo", en: "5-star Hotel · Antananarivo" },
-  "home.title.1": { fr: "Luxe, authenticité,", en: "Luxury, authenticity," },
-  "home.title.2": { fr: "découvrez Madagascar sous un nouveau jour", en: "discover Madagascar in a new light" },
+  "home.title.1": { fr: "Luxe, authenticité", en: "Luxury, authenticity" },
   "home.checkin": { fr: "Arrivée", en: "Check-in" },
   "home.checkout": { fr: "Départ", en: "Check-out" },
   "home.guests": { fr: "Hôtes", en: "Guests" },
