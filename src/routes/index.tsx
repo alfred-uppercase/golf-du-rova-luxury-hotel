@@ -89,21 +89,21 @@ function Index() {
           style={{ animation: "var(--animate-fade-up-delay)" }}
         >
           <div className="bg-background/95 backdrop-blur shadow-2xl ring-1 ring-black/5 p-1 flex flex-col md:flex-row items-stretch">
-            <div className="flex-1 flex border-b md:border-b-0 md:border-r border-border">
+            <a href={BOOKING_URL} target="_blank" rel="noreferrer" className="flex-1 flex border-b md:border-b-0 md:border-r border-border">
               <div className="flex-1 p-5 border-r border-border hover:bg-stone-soft transition-colors cursor-pointer">
                 <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-1">{t("home.checkin")}</p>
-                <p className="font-display text-lg">{t("home.date.in")}</p>
+                <p className="font-display text-lg">{fmt.format(checkIn)}</p>
               </div>
               <div className="flex-1 p-5 hover:bg-stone-soft transition-colors cursor-pointer">
                 <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-1">{t("home.checkout")}</p>
-                <p className="font-display text-lg">{t("home.date.out")}</p>
+                <p className="font-display text-lg">{fmt.format(checkOut)}</p>
               </div>
-            </div>
+            </a>
             <div className="flex-1 flex">
-              <div className="flex-1 p-5 border-r border-border hover:bg-stone-soft transition-colors cursor-pointer">
+              <a href={BOOKING_URL} target="_blank" rel="noreferrer" className="flex-1 p-5 border-r border-border hover:bg-stone-soft transition-colors cursor-pointer">
                 <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-1">{t("home.guests")}</p>
                 <p className="font-display text-lg">{t("home.adults")}</p>
-              </div>
+              </a>
               <a href={BOOKING_URL} target="_blank" rel="noreferrer" className="flex flex-1 items-center justify-center bg-accent text-accent-foreground uppercase tracking-[0.2em] text-[11px] font-bold hover:bg-primary hover:text-primary-foreground transition-all duration-500 px-6 py-5 text-center">
                 {t("home.check.availability")}
               </a>
