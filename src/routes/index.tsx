@@ -36,8 +36,13 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const { t } = useT();
+  const { t, lang } = useT();
   const [videoOpen, setVideoOpen] = useState(false);
+  const fmt = new Intl.DateTimeFormat(lang === "fr" ? "fr-FR" : "en-GB", { day: "numeric", month: "long", year: "numeric" });
+  const checkIn = new Date();
+  checkIn.setDate(checkIn.getDate() + 2);
+  const checkOut = new Date(checkIn);
+  checkOut.setDate(checkOut.getDate() + 6);
   return (
     <div className="min-h-screen bg-background font-body text-foreground selection:bg-primary/10 selection:text-primary">
       <SiteHeader active="hotel" />
