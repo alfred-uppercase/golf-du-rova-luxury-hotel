@@ -2,9 +2,9 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from "
 
 export type Lang = "fr" | "en";
 
-type Dict = Record<string, { fr: string; en: string }>;
+export type Dict = Record<string, { fr: string; en: string }>;
 
-const D: Dict = {
+export const DICTIONARY: Dict = {
   // Nav
   "nav.hotel": { fr: "L'Hôtel", en: "The Hotel" },
   "nav.rooms": { fr: "Chambres", en: "Rooms" },
@@ -371,7 +371,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   };
 
   const t = (key: string) => {
-    const entry = D[key];
+    const entry = DICTIONARY[key];
     if (!entry) return key;
     return entry[lang];
   };
@@ -380,7 +380,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 }
 
 export function getFrenchCopy(key: string) {
-  return D[key]?.fr ?? key;
+  return DICTIONARY[key]?.fr ?? key;
 }
 
 export function useT() {
