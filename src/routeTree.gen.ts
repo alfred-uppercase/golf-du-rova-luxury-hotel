@@ -10,15 +10,32 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ChambresRouteImport } from './routes/chambres'
 import { Route as EvenementsRouteImport } from './routes/evenements'
 import { Route as GolfRouteImport } from './routes/golf'
 import { Route as ReservationRouteImport } from './routes/reservation'
 import { Route as RestaurantsRouteImport } from './routes/restaurants'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedAdminAccueilRouteImport } from './routes/_authenticated/admin.accueil'
+import { Route as AuthenticatedAdminChambresRouteImport } from './routes/_authenticated/admin.chambres'
+import { Route as AuthenticatedAdminGolfRouteImport } from './routes/_authenticated/admin.golf'
+import { Route as AuthenticatedAdminRestaurantsRouteImport } from './routes/_authenticated/admin.restaurants'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ChambresRoute = ChambresRouteImport.update({
@@ -46,61 +63,138 @@ const RestaurantsRoute = RestaurantsRouteImport.update({
   path: '/restaurants',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminAccueilRoute =
+  AuthenticatedAdminAccueilRouteImport.update({
+    id: '/accueil',
+    path: '/accueil',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminChambresRoute =
+  AuthenticatedAdminChambresRouteImport.update({
+    id: '/chambres',
+    path: '/chambres',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminGolfRoute = AuthenticatedAdminGolfRouteImport.update({
+  id: '/golf',
+  path: '/golf',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminRestaurantsRoute =
+  AuthenticatedAdminRestaurantsRouteImport.update({
+    id: '/restaurants',
+    path: '/restaurants',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/chambres': typeof ChambresRoute
   '/evenements': typeof EvenementsRoute
   '/golf': typeof GolfRoute
   '/reservation': typeof ReservationRoute
   '/restaurants': typeof RestaurantsRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/admin/accueil': typeof AuthenticatedAdminAccueilRoute
+  '/admin/chambres': typeof AuthenticatedAdminChambresRoute
+  '/admin/golf': typeof AuthenticatedAdminGolfRoute
+  '/admin/restaurants': typeof AuthenticatedAdminRestaurantsRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/chambres': typeof ChambresRoute
   '/evenements': typeof EvenementsRoute
   '/golf': typeof GolfRoute
   '/reservation': typeof ReservationRoute
   '/restaurants': typeof RestaurantsRoute
+  '/admin/accueil': typeof AuthenticatedAdminAccueilRoute
+  '/admin/chambres': typeof AuthenticatedAdminChambresRoute
+  '/admin/golf': typeof AuthenticatedAdminGolfRoute
+  '/admin/restaurants': typeof AuthenticatedAdminRestaurantsRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/chambres': typeof ChambresRoute
   '/evenements': typeof EvenementsRoute
   '/golf': typeof GolfRoute
   '/reservation': typeof ReservationRoute
   '/restaurants': typeof RestaurantsRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/_authenticated/admin/accueil': typeof AuthenticatedAdminAccueilRoute
+  '/_authenticated/admin/chambres': typeof AuthenticatedAdminChambresRoute
+  '/_authenticated/admin/golf': typeof AuthenticatedAdminGolfRoute
+  '/_authenticated/admin/restaurants': typeof AuthenticatedAdminRestaurantsRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/chambres'
     | '/evenements'
     | '/golf'
     | '/reservation'
     | '/restaurants'
+    | '/admin'
+    | '/admin/accueil'
+    | '/admin/chambres'
+    | '/admin/golf'
+    | '/admin/restaurants'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/chambres'
     | '/evenements'
     | '/golf'
     | '/reservation'
     | '/restaurants'
+    | '/admin/accueil'
+    | '/admin/chambres'
+    | '/admin/golf'
+    | '/admin/restaurants'
+    | '/admin'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
+    | '/auth'
     | '/chambres'
     | '/evenements'
     | '/golf'
     | '/reservation'
     | '/restaurants'
+    | '/_authenticated/admin'
+    | '/_authenticated/admin/accueil'
+    | '/_authenticated/admin/chambres'
+    | '/_authenticated/admin/golf'
+    | '/_authenticated/admin/restaurants'
+    | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   ChambresRoute: typeof ChambresRoute
   EvenementsRoute: typeof EvenementsRoute
   GolfRoute: typeof GolfRoute
@@ -115,6 +209,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/chambres': {
@@ -152,11 +260,85 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RestaurantsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/accueil': {
+      id: '/_authenticated/admin/accueil'
+      path: '/accueil'
+      fullPath: '/admin/accueil'
+      preLoaderRoute: typeof AuthenticatedAdminAccueilRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/chambres': {
+      id: '/_authenticated/admin/chambres'
+      path: '/chambres'
+      fullPath: '/admin/chambres'
+      preLoaderRoute: typeof AuthenticatedAdminChambresRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/golf': {
+      id: '/_authenticated/admin/golf'
+      path: '/golf'
+      fullPath: '/admin/golf'
+      preLoaderRoute: typeof AuthenticatedAdminGolfRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/restaurants': {
+      id: '/_authenticated/admin/restaurants'
+      path: '/restaurants'
+      fullPath: '/admin/restaurants'
+      preLoaderRoute: typeof AuthenticatedAdminRestaurantsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
   }
 }
 
+interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminAccueilRoute: typeof AuthenticatedAdminAccueilRoute
+  AuthenticatedAdminChambresRoute: typeof AuthenticatedAdminChambresRoute
+  AuthenticatedAdminGolfRoute: typeof AuthenticatedAdminGolfRoute
+  AuthenticatedAdminRestaurantsRoute: typeof AuthenticatedAdminRestaurantsRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminAccueilRoute: AuthenticatedAdminAccueilRoute,
+  AuthenticatedAdminChambresRoute: AuthenticatedAdminChambresRoute,
+  AuthenticatedAdminGolfRoute: AuthenticatedAdminGolfRoute,
+  AuthenticatedAdminRestaurantsRoute: AuthenticatedAdminRestaurantsRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   ChambresRoute: ChambresRoute,
   EvenementsRoute: EvenementsRoute,
   GolfRoute: GolfRoute,

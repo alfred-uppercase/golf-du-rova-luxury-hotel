@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { useSiteData } from "@/lib/site-data";
 
 export type Lang = "fr" | "en";
 
@@ -370,7 +371,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     } catch {}
   };
 
+  const site = useSiteData();
   const t = (key: string) => {
+    const override = site?.content.find((c) => c.key === key);
+    if (override && override[lang]) return override[lang];
     const entry = DICTIONARY[key];
     if (!entry) return key;
     return entry[lang];
