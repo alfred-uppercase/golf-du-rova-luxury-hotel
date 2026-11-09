@@ -3,6 +3,7 @@ import { ArrowUpRight, Wifi, Presentation, NotebookPen, Mic, Users } from "lucid
 import palaisAsset from "@/assets/events-palais.webp.asset.json";
 import conferenceAsset from "@/assets/events-conference.jpg.asset.json";
 import banquetAsset from "@/assets/events-banquet.jpg.asset.json";
+import { seoHead, siteDataQuery } from "@/lib/site-data";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
@@ -10,16 +11,12 @@ import { BOOKING_URL } from "@/lib/booking";
 import { useT, getFrenchCopy } from "@/lib/i18n";
 
 export const Route = createFileRoute("/evenements")({
-  head: () => ({
-    meta: [
-      { title: getFrenchCopy("events.meta.title") },
-      { name: "description", content: getFrenchCopy("events.meta.description") },
-      { property: "og:title", content: getFrenchCopy("events.meta.title") },
-      { property: "og:description", content: getFrenchCopy("events.meta.description") },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(siteDataQuery).catch(() => undefined),
+  head: ({ loaderData }) =>
+    seoHead(loaderData, "events", "/evenements", {
+      title: getFrenchCopy("events.meta.title"),
+      description: getFrenchCopy("events.meta.description"),
+    }),
   component: EventsPage,
 });
 

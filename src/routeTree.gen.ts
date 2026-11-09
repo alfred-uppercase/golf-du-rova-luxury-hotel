@@ -23,6 +23,8 @@ import { Route as AuthenticatedAdminAccueilRouteImport } from './routes/_authent
 import { Route as AuthenticatedAdminChambresRouteImport } from './routes/_authenticated/admin.chambres'
 import { Route as AuthenticatedAdminGolfRouteImport } from './routes/_authenticated/admin.golf'
 import { Route as AuthenticatedAdminRestaurantsRouteImport } from './routes/_authenticated/admin.restaurants'
+import { Route as AuthenticatedAdminSeoRouteImport } from './routes/_authenticated/admin.seo'
+import { Route as AuthenticatedAdminUtilisateursRouteImport } from './routes/_authenticated/admin.utilisateurs'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -96,6 +98,17 @@ const AuthenticatedAdminRestaurantsRoute =
     path: '/restaurants',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminSeoRoute = AuthenticatedAdminSeoRouteImport.update({
+  id: '/seo',
+  path: '/seo',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminUtilisateursRoute =
+  AuthenticatedAdminUtilisateursRouteImport.update({
+    id: '/utilisateurs',
+    path: '/utilisateurs',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -110,6 +123,8 @@ export interface FileRoutesByFullPath {
   '/admin/chambres': typeof AuthenticatedAdminChambresRoute
   '/admin/golf': typeof AuthenticatedAdminGolfRoute
   '/admin/restaurants': typeof AuthenticatedAdminRestaurantsRoute
+  '/admin/seo': typeof AuthenticatedAdminSeoRoute
+  '/admin/utilisateurs': typeof AuthenticatedAdminUtilisateursRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
@@ -124,6 +139,8 @@ export interface FileRoutesByTo {
   '/admin/chambres': typeof AuthenticatedAdminChambresRoute
   '/admin/golf': typeof AuthenticatedAdminGolfRoute
   '/admin/restaurants': typeof AuthenticatedAdminRestaurantsRoute
+  '/admin/seo': typeof AuthenticatedAdminSeoRoute
+  '/admin/utilisateurs': typeof AuthenticatedAdminUtilisateursRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
@@ -141,6 +158,8 @@ export interface FileRoutesById {
   '/_authenticated/admin/chambres': typeof AuthenticatedAdminChambresRoute
   '/_authenticated/admin/golf': typeof AuthenticatedAdminGolfRoute
   '/_authenticated/admin/restaurants': typeof AuthenticatedAdminRestaurantsRoute
+  '/_authenticated/admin/seo': typeof AuthenticatedAdminSeoRoute
+  '/_authenticated/admin/utilisateurs': typeof AuthenticatedAdminUtilisateursRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -158,6 +177,8 @@ export interface FileRouteTypes {
     | '/admin/chambres'
     | '/admin/golf'
     | '/admin/restaurants'
+    | '/admin/seo'
+    | '/admin/utilisateurs'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -172,6 +193,8 @@ export interface FileRouteTypes {
     | '/admin/chambres'
     | '/admin/golf'
     | '/admin/restaurants'
+    | '/admin/seo'
+    | '/admin/utilisateurs'
     | '/admin'
   id:
     | '__root__'
@@ -188,6 +211,8 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/chambres'
     | '/_authenticated/admin/golf'
     | '/_authenticated/admin/restaurants'
+    | '/_authenticated/admin/seo'
+    | '/_authenticated/admin/utilisateurs'
     | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -302,6 +327,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRestaurantsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/seo': {
+      id: '/_authenticated/admin/seo'
+      path: '/seo'
+      fullPath: '/admin/seo'
+      preLoaderRoute: typeof AuthenticatedAdminSeoRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/utilisateurs': {
+      id: '/_authenticated/admin/utilisateurs'
+      path: '/utilisateurs'
+      fullPath: '/admin/utilisateurs'
+      preLoaderRoute: typeof AuthenticatedAdminUtilisateursRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
   }
 }
 
@@ -310,6 +349,8 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminChambresRoute: typeof AuthenticatedAdminChambresRoute
   AuthenticatedAdminGolfRoute: typeof AuthenticatedAdminGolfRoute
   AuthenticatedAdminRestaurantsRoute: typeof AuthenticatedAdminRestaurantsRoute
+  AuthenticatedAdminSeoRoute: typeof AuthenticatedAdminSeoRoute
+  AuthenticatedAdminUtilisateursRoute: typeof AuthenticatedAdminUtilisateursRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
@@ -318,6 +359,8 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminChambresRoute: AuthenticatedAdminChambresRoute,
   AuthenticatedAdminGolfRoute: AuthenticatedAdminGolfRoute,
   AuthenticatedAdminRestaurantsRoute: AuthenticatedAdminRestaurantsRoute,
+  AuthenticatedAdminSeoRoute: AuthenticatedAdminSeoRoute,
+  AuthenticatedAdminUtilisateursRoute: AuthenticatedAdminUtilisateursRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
 }
 

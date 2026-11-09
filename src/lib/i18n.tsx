@@ -27,6 +27,13 @@ export const DICTIONARY: Dict = {
   "home.date.out": { fr: "18 Juin 2026", en: "June 18, 2026" },
   "home.check.availability": { fr: "Vérifier la disponibilité", en: "Check availability" },
 
+  // Photo alt texts (SEO)
+  "home.story.img1.alt": { fr: "Le Clubhouse du Golf du Rova face au green", en: "The Golf du Rova Clubhouse facing the green" },
+  "home.story.img2.alt": { fr: "Drapeau du Golf du Rova au coucher du soleil", en: "Golf du Rova flag at sunset" },
+  "golf.proshop.img.alt": { fr: "Pro Shop du Golf du Rova", en: "Golf du Rova Pro Shop" },
+  "golf.practice.img.alt": { fr: "Terrasse Le Swing au practice", en: "Le Swing terrace at the driving range" },
+  "golf.clubhouse.img.alt": { fr: "Le Clubhouse du Golf du Rova", en: "The Golf du Rova Clubhouse" },
+
   // Home — Story
   "home.story.kicker": { fr: "Histoire & Élégance", en: "History & Elegance" },
   "home.story.title.1": { fr: "Là où l'élégance", en: "Where elegance" },

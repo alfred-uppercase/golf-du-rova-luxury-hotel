@@ -45,6 +45,10 @@ export const SEO_PAGES = [
   { page: "events", label: "Événements", path: "/evenements" },
 ] as const;
 
+export function splitParagraphs(text: string) {
+  return text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+}
+
 export function absoluteUrl(url: string) {
   return url.startsWith("http") ? url : `${SITE_URL}${url}`;
 }

@@ -16,3 +16,5 @@
 - [x] Recomposer la page Chambres avec sa vidéo et ses deux sections
 - [x] Ajouter les trois vues depuis le balcon avec les photos fournies
 - [x] Relier les boutons de réservation au moteur externe
+
+- [x] Espace admin (admins/éditeurs) : chambres, restaurants, accueil, golf, SEO, utilisateurs

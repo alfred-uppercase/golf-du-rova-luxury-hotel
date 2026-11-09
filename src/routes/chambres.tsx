@@ -8,6 +8,7 @@ import golfView from "@/assets/chambre-vue-golf.png.asset.json";
 import ruralView from "@/assets/chambre-vue-massif.png.asset.json";
 import forestView from "@/assets/chambre-vue-foret.png.asset.json";
 import { useT } from "@/lib/i18n";
+import { seoHead, siteDataQuery, splitParagraphs, useSiteData } from "@/lib/site-data";
 import { BOOKING_URL } from "@/lib/booking";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -43,24 +44,12 @@ const AMENITIES = [
 ];
 
 export const Route = createFileRoute("/chambres")({
-  head: () => ({
-    meta: [
-      { title: "Chambres & Suites — Golf du Rova, Madagascar" },
-      {
-        name: "description",
-        content:
-          "Découvrez les chambres du Golf du Rova avec vue sur le parcours, le massif rural ou la forêt malgache.",
-      },
-      { property: "og:title", content: "Chambres & Suites — Golf du Rova" },
-      {
-        property: "og:description",
-        content:
-          "Trois horizons pour votre séjour : le parcours de golf, le massif rural et la forêt.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(siteDataQuery).catch(() => undefined),
+  head: ({ loaderData }) =>
+    seoHead(loaderData, "rooms", "/chambres", {
+      title: "Chambres & Suites — Golf du Rova, Madagascar",
+      description: "Découvrez les chambres du Golf du Rova avec vue sur le parcours, le massif rural ou la forêt malgache.",
+    }),
   component: ChambresPage,
 });
 
@@ -71,9 +60,25 @@ const views = [
 ];
 
 function ChambresPage() {
-  const { t } = useT();
+  const { t, lang } = useT();
   const [openInfo, setOpenInfo] = useState(false);
   const [videoOpen, setVideoOpen] = useState(false);
+  const site = useSiteData();
+  const roomSections = site?.rooms.length
+    ? site.rooms.map((r) => ({
+        id: r.id,
+        title: lang === "en" ? r.title_en || r.title_fr : r.title_fr,
+        paragraphs: splitParagraphs(lang === "en" ? r.body_en || r.body_fr : r.body_fr),
+        image: r.image_url,
+        alt: lang === "en" ? r.alt_en || r.alt_fr : r.alt_fr,
+      }))
+    : [1, 2].map((n) => ({
+        id: String(n),
+        title: t(`rooms.section${n}.title`),
+        paragraphs: [t(`rooms.section${n}.p1`), t(`rooms.section${n}.p2`)],
+        image: n === 1 ? roomSuite : roomDetail,
+        alt: t(`rooms.section${n}.alt`),
+      }));
 
   useEffect(() => {
     if (!openInfo) return;
@@ -107,35 +112,26 @@ function ChambresPage() {
         </div>
       </section>
 
-      <section className="py-24 md:py-32 px-6 md:px-12">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          <div className="lg:col-span-7">
-            <img src={roomSuite} alt={t("rooms.section1.alt")} width={1280} height={960} loading="lazy" className="w-full aspect-[4/3] object-cover" />
-          </div>
-          <div className="lg:col-span-5">
-            <span className="font-mono text-[10px] text-accent tracking-[0.3em] block mb-6">[ 01 ]</span>
-            <h2 className="font-display text-4xl md:text-5xl leading-tight mb-8 text-balance">{t("rooms.section1.title")}</h2>
-            <p className="text-muted-foreground leading-relaxed mb-5">{t("rooms.section1.p1")}</p>
-            <p className="text-muted-foreground leading-relaxed mb-9">{t("rooms.section1.p2")}</p>
-            <RoomActions t={t} onDetails={() => setOpenInfo(true)} />
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-stone-soft py-24 md:py-32 px-6 md:px-12">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          <div className="lg:col-span-5">
-            <span className="font-mono text-[10px] text-accent tracking-[0.3em] block mb-6">[ 02 ]</span>
-            <h2 className="font-display text-4xl md:text-5xl leading-tight mb-8 text-balance">{t("rooms.section2.title")}</h2>
-            <p className="text-muted-foreground leading-relaxed mb-5">{t("rooms.section2.p1")}</p>
-            <p className="text-muted-foreground leading-relaxed mb-9">{t("rooms.section2.p2")}</p>
-            <RoomActions t={t} onDetails={() => setOpenInfo(true)} />
-          </div>
-          <div className="lg:col-span-7 lg:order-last order-first">
-            <img src={roomDetail} alt={t("rooms.section2.alt")} width={1280} height={960} loading="lazy" className="w-full aspect-[4/3] object-cover" />
-          </div>
-        </div>
-      </section>
+      {roomSections.map((room, index) => {
+        const reversed = index % 2 === 1;
+        return (
+          <section key={room.id} className={`${reversed ? "bg-stone-soft " : ""}py-24 md:py-32 px-6 md:px-12`}>
+            <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+              <div className={`lg:col-span-7 ${reversed ? "lg:order-last" : ""}`}>
+                {room.image && <img src={room.image} alt={room.alt} width={1280} height={960} loading="lazy" className="w-full aspect-[4/3] object-cover" />}
+              </div>
+              <div className="lg:col-span-5">
+                <span className="font-mono text-[10px] text-accent tracking-[0.3em] block mb-6">[ {String(index + 1).padStart(2, "0")} ]</span>
+                <h2 className="font-display text-4xl md:text-5xl leading-tight mb-8 text-balance">{room.title}</h2>
+                {room.paragraphs.map((p, i) => (
+                  <p key={i} className={`text-muted-foreground leading-relaxed ${i === room.paragraphs.length - 1 ? "mb-9" : "mb-5"}`}>{p}</p>
+                ))}
+                <RoomActions t={t} onDetails={() => setOpenInfo(true)} />
+              </div>
+            </div>
+          </section>
+        );
+      })}
 
       <section className="py-24 md:py-32 px-6 md:px-12">
         <div className="max-w-7xl mx-auto">

@@ -2,13 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight, X, Play } from "lucide-react";
 import { useT } from "@/lib/i18n";
+import { DEFAULT_IMAGES } from "@/lib/default-images";
+import { seoHead, siteDataQuery, useSiteImage } from "@/lib/site-data";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { VideoModal } from "@/components/video-modal";
 import { BOOKING_URL } from "@/lib/booking";
-import proshopAsset from "@/assets/golf-proshop.png.asset.json";
-import practiceAsset from "@/assets/golf-practice.png.asset.json";
-import clubhouseAsset from "@/assets/golf-clubhouse.png.asset.json";
 import gr1 from "@/assets/golf-real-1.png.asset.json";
 import gr2 from "@/assets/golf-real-2.png.asset.json";
 import gr3 from "@/assets/golf-real-3.png.asset.json";
@@ -19,29 +18,14 @@ import gr7 from "@/assets/golf-real-7.png.asset.json";
 import gr8 from "@/assets/golf-real-8.png.asset.json";
 import gr9 from "@/assets/golf-real-9.png.asset.json";
 import gr10 from "@/assets/golf-real-10.png.asset.json";
-const proshopImg = proshopAsset.url;
-const practiceImg = practiceAsset.url;
-const clubhouseImg = clubhouseAsset.url;
 
 export const Route = createFileRoute("/golf")({
-  head: () => ({
-    meta: [
-      { title: "Golf 18 trous — Golf du Rova, Madagascar" },
-      {
-        name: "description",
-        content:
-          "Le seul véritable parcours 18 trous de Madagascar, fondé en 1930. Pro Shop, practice et clubhouse au cœur des hauts plateaux.",
-      },
-      { property: "og:title", content: "Le Golf 18 trous — Golf du Rova" },
-      {
-        property: "og:description",
-        content:
-          "Une institution centenaire à 30 minutes d'Antananarivo. Découvrez le parcours, le practice Le Swing et le Pro Shop.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(siteDataQuery).catch(() => undefined),
+  head: ({ loaderData }) =>
+    seoHead(loaderData, "golf", "/golf", {
+      title: "Golf 18 trous — Golf du Rova, Madagascar",
+      description: "Le seul véritable parcours 18 trous de Madagascar, fondé en 1930. Pro Shop, practice et clubhouse au cœur des hauts plateaux.",
+    }),
   component: GolfPage,
 });
 
@@ -64,6 +48,9 @@ function GolfPage() {
   const { t, lang } = useT();
   const [lightbox, setLightbox] = useState<number | null>(null);
   const [videoOpen, setVideoOpen] = useState(false);
+  const proshopImg = useSiteImage("golf.img.proshop", DEFAULT_IMAGES["golf.img.proshop"]);
+  const practiceImg = useSiteImage("golf.img.practice", DEFAULT_IMAGES["golf.img.practice"]);
+  const clubhouseImg = useSiteImage("golf.img.clubhouse", DEFAULT_IMAGES["golf.img.clubhouse"]);
 
   const close = useCallback(() => setLightbox(null), []);
   const next = useCallback(
@@ -163,7 +150,7 @@ function GolfPage() {
           <div className="lg:col-span-7 lg:order-2">
             <img
               src={proshopImg}
-              alt="Pro Shop"
+              alt={t("golf.proshop.img.alt")}
               width={1280}
               height={1600}
               loading="lazy"
@@ -179,7 +166,7 @@ function GolfPage() {
           <div className="lg:col-span-7 order-2 lg:order-1">
             <img
               src={practiceImg}
-              alt="Le Swing"
+              alt={t("golf.practice.img.alt")}
               width={1600}
               height={1024}
               loading="lazy"
@@ -232,7 +219,7 @@ function GolfPage() {
           <div className="lg:col-span-7">
             <img
               src={clubhouseImg}
-              alt="Le Clubhouse"
+              alt={t("golf.clubhouse.img.alt")}
               width={1600}
               height={1024}
               loading="lazy"

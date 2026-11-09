@@ -1,12 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { ExternalLink, Play } from "lucide-react";
-import clubhousePhotoAsset from "@/assets/real-clubhouse.png.asset.json";
-import flagPhotoAsset from "@/assets/real-flag.png.asset.json";
-import expSuite from "@/assets/home-suite-premium.png.asset.json";
-import expGolf from "@/assets/home-golf-historique.png.asset.json";
-import expSpa from "@/assets/home-sanctuaire.png.asset.json";
 import { useT } from "@/lib/i18n";
+import { DEFAULT_IMAGES } from "@/lib/default-images";
+import { seoHead, siteDataQuery, useSiteImage } from "@/lib/site-data";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { VideoModal } from "@/components/video-modal";
@@ -22,22 +19,23 @@ const REVIEWS = [
 ];
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Golf du Rova — Hôtel 5 étoiles à Madagascar" },
-      { name: "description", content: "Luxe, authenticité : découvrez Madagascar sous un nouveau jour au Golf du Rova, hôtel 5 étoiles et parcours 18 trous." },
-      { property: "og:title", content: "Golf du Rova — Hôtel 5 étoiles à Madagascar" },
-      { property: "og:description", content: "Là où l’élégance rencontre l’histoire, au cœur des hauts plateaux malgaches." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(siteDataQuery).catch(() => undefined),
+  head: ({ loaderData }) =>
+    seoHead(loaderData, "home", "/", {
+      title: "Golf du Rova — Hôtel 5 étoiles à Madagascar",
+      description: "Luxe et authenticité au Golf du Rova, hôtel 5 étoiles et seul parcours 18 trous de Madagascar, au cœur des hauts plateaux.",
+    }),
   component: Index,
 });
 
 function Index() {
   const { t, lang } = useT();
   const [videoOpen, setVideoOpen] = useState(false);
+  const imgStory1 = useSiteImage("home.img.story1", DEFAULT_IMAGES["home.img.story1"]);
+  const imgStory2 = useSiteImage("home.img.story2", DEFAULT_IMAGES["home.img.story2"]);
+  const imgSuite = useSiteImage("home.img.exp.suite", DEFAULT_IMAGES["home.img.exp.suite"]);
+  const imgGolf = useSiteImage("home.img.exp.golf", DEFAULT_IMAGES["home.img.exp.golf"]);
+  const imgSpa = useSiteImage("home.img.exp.spa", DEFAULT_IMAGES["home.img.exp.spa"]);
   const fmt = new Intl.DateTimeFormat(lang === "fr" ? "fr-FR" : "en-GB", { day: "numeric", month: "long", year: "numeric" });
   const checkIn = new Date();
   checkIn.setDate(checkIn.getDate() + 2);
@@ -141,8 +139,8 @@ function Index() {
             <div className="grid grid-cols-2 gap-4 md:gap-6">
               <div className="pt-12">
                 <img
-                  src={clubhousePhotoAsset.url}
-                  alt="Le Clubhouse du Golf du Rova face au green"
+                  src={imgStory1}
+                  alt={t("home.story.img1.alt")}
                   width={800}
                   height={1056}
                   loading="lazy"
@@ -151,8 +149,8 @@ function Index() {
               </div>
               <div>
                 <img
-                  src={flagPhotoAsset.url}
-                  alt="Drapeau du Golf du Rova au coucher du soleil"
+                  src={imgStory2}
+                  alt={t("home.story.img2.alt")}
                   width={800}
                   height={1056}
                   loading="lazy"
@@ -176,9 +174,9 @@ function Index() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
             {[
-              { img: expSuite.url, label: t("home.exp.suite.label"), title: t("home.exp.suite.title"), alt: t("home.exp.suite.alt"), to: "/chambres" as const },
-              { img: expGolf.url, label: t("home.exp.golf.label"), title: t("home.exp.golf.title"), alt: t("home.exp.golf.alt"), to: "/golf" as const },
-              { img: expSpa.url, label: t("home.exp.spa.label"), title: t("home.exp.spa.title"), alt: t("home.exp.spa.alt"), to: "/evenements" as const },
+              { img: imgSuite, label: t("home.exp.suite.label"), title: t("home.exp.suite.title"), alt: t("home.exp.suite.alt"), to: "/chambres" as const },
+              { img: imgGolf, label: t("home.exp.golf.label"), title: t("home.exp.golf.title"), alt: t("home.exp.golf.alt"), to: "/golf" as const },
+              { img: imgSpa, label: t("home.exp.spa.label"), title: t("home.exp.spa.title"), alt: t("home.exp.spa.alt"), to: "/evenements" as const },
             ].map((card) => (
               <Link
                 to={card.to}

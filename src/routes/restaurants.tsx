@@ -8,6 +8,7 @@ const restoAsian = restoAsianAsset.url;
 const restoView = restoViewAsset.url;
 import chefZervas from "@/assets/chef-zervas.jpg";
 import { useT } from "@/lib/i18n";
+import { seoHead, siteDataQuery, splitParagraphs, useSiteData } from "@/lib/site-data";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { BOOKING_URL } from "@/lib/booking";
@@ -15,26 +16,16 @@ import { BOOKING_URL } from "@/lib/booking";
 const RESTAURANT_VIDEO = "https://golf-madagascar.mg/wp-content/uploads/2024/11/Restaurant_1.mp4";
 
 export const Route = createFileRoute("/restaurants")({
-  head: () => ({
-    meta: [
-      { title: "Restaurants — Golf du Rova, Madagascar" },
-      {
-        name: "description",
-        content:
-          "Trois tables d'exception au Golf du Rova : La Table du Rova (gastronomique fusion), Asian Gourmet et The View Bar Lounge.",
-      },
-      { property: "og:title", content: "Restaurants — Golf du Rova" },
-      {
-        property: "og:description",
-        content:
-          "Voyage culinaire à travers nos trois restaurants étoilés au cœur des hauts plateaux malgaches.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(siteDataQuery).catch(() => undefined),
+  head: ({ loaderData }) =>
+    seoHead(loaderData, "restaurants", "/restaurants", {
+      title: "Restaurants — Golf du Rova, Madagascar",
+      description: "Trois tables d'exception au Golf du Rova : La Table du Rova, Asian Gourmet et The View Bar Lounge.",
+    }),
   component: RestaurantsPage,
 });
+
+type Shown = { id: string; index: string; name: string; cat: string; alt: string; paragraphs: string[]; img: string; bookingName: string };
 
 type Resto = {
   id: string;
@@ -77,9 +68,32 @@ const restaurants: Resto[] = [
 ];
 
 function RestaurantsPage() {
-  const { t } = useT();
+  const { t, lang } = useT();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
-  const active = restaurants.find((r) => r.id === openMenu);
+  const site = useSiteData();
+  const pick = (fr: string, en: string) => (lang === "en" ? en || fr : fr);
+  const list: Shown[] = site?.restaurants.length
+    ? site.restaurants.map((r, i) => ({
+        id: r.slug || r.id,
+        index: String(i + 1).padStart(2, "0"),
+        name: pick(r.name_fr, r.name_en),
+        cat: pick(r.category_fr, r.category_en),
+        alt: pick(r.alt_fr, r.alt_en),
+        paragraphs: splitParagraphs(pick(r.body_fr, r.body_en)),
+        img: r.image_url ?? "",
+        bookingName: r.name_fr,
+      }))
+    : restaurants.map((r) => ({
+        id: r.id,
+        index: r.index,
+        name: t(r.nameKey),
+        cat: t(r.catKey),
+        alt: t(r.altKey),
+        paragraphs: r.paraKeys.map((k) => t(k)),
+        img: r.img,
+        bookingName: t(r.nameKey),
+      }));
+  const active = list.find((r) => r.id === openMenu);
 
   return (
     <div className="min-h-screen bg-background font-body text-foreground selection:bg-primary/10 selection:text-primary">
@@ -110,7 +124,7 @@ function RestaurantsPage() {
 
       {/* Restaurants */}
       <section className="py-24 md:py-32 px-6 md:px-12 space-y-28 md:space-y-40">
-        {restaurants.map((r, i) => (
+        {list.map((r, i) => (
           <article
             key={r.id}
             id={r.id}
@@ -121,7 +135,7 @@ function RestaurantsPage() {
             <div className="lg:col-span-7">
               <img
                 src={r.img}
-                alt={t(r.altKey)}
+                alt={r.alt}
                 width={1280}
                 height={1600}
                 loading="lazy"
@@ -136,18 +150,18 @@ function RestaurantsPage() {
                 <span className="h-px flex-1 bg-border" />
               </div>
               <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-muted-foreground block mb-4">
-                {t(r.catKey)}
+                {r.cat}
               </span>
               <h2 className="font-display text-4xl md:text-5xl leading-tight mb-8 text-balance">
-                {t(r.nameKey)}
+                {r.name}
               </h2>
               <div className="space-y-5 mb-10">
-                {r.paraKeys.map((p) => (
+                {r.paragraphs.map((p, pi) => (
                   <p
-                    key={p}
+                    key={pi}
                     className="text-muted-foreground leading-relaxed text-pretty max-w-[52ch]"
                   >
-                    {t(p)}
+                    {p}
                   </p>
                 ))}
               </div>
@@ -252,10 +266,10 @@ function RestaurantsPage() {
             onClick={(e) => e.stopPropagation()}
           >
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent block mb-4">
-              {t(active.catKey)}
+              {active.cat}
             </span>
             <h3 className="font-display text-3xl md:text-4xl mb-6">
-              {t(active.nameKey)}
+              {active.name}
             </h3>
             <p className="text-muted-foreground leading-relaxed mb-8">
               {t("resto.modal.p")}
